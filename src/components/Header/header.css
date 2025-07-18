@@ -1,0 +1,33 @@
+.header .title {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12rem;
+  font-size: 3.5rem;
+}
+
+nav {
+  height: 5vh;
+  border-bottom: 2px solid black;
+  position: relative;
+  font-size: 1.8rem;
+}
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  gap: 20rem;
+}
+.right-side-nav {
+  display: flex;
+  gap: 50px
+}
+
+.corgi-header-img {
+  width: 17rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 5%);
+  z-index: 1;
+}
