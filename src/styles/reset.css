@@ -21,7 +21,6 @@ body {
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   font-size: 1.6rem; /* equals 16px */ 
-  overflow: hidden;
 }
 
 /* 6. Improve media defaults */

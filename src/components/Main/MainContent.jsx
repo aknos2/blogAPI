@@ -1,14 +1,20 @@
 import './mainContent.css';
 import Article from "./Article";
-import SideMenu from "./SideMenu";
 import MessageBoard from './MessageBoard';
+import { useState } from 'react';
 
 function MainContent() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+      setIsChatOpen(prev => !prev);
+  }
+
   return (
     <main>
-      <SideMenu />
-      <Article />
-      <MessageBoard />
+      <div></div>
+      <Article onToggleChat={toggleChat} />
+      <MessageBoard isChatOpen={isChatOpen}/>
     </main>
   )
 }

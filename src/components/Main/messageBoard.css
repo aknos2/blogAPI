@@ -1,18 +1,24 @@
 .message-board-container {
+  position: fixed;
+  top: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   padding: 1rem;
   gap: 1.2rem;
   background-color: #fff;
   border-radius: 0.75rem;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-out;
 }
 
 .message-wrap {
+  flex: 1;
   display: flex;
   gap: 1rem;
   align-items: flex-start;
   border-bottom: 1px solid #eee;
   padding-bottom: 1rem;
+  overflow-y: auto;
 }
 
 .message-wrap img {
@@ -47,4 +53,50 @@
 .date {
   font-size: 0.75rem;
   color: #999;
+}
+
+
+.slide-in-chat {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slide-out-chat {
+  transform: translateX(100%);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.message-input {
+  display: flex;
+  align-items: flex-end;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+.message-input textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  max-height: 4rem;
+  overflow-y: auto;
+  font-family: inherit;
+}
+.message-input button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  background-color: #de790d; /* Instagram blue */
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+.message-input .send-msg-icon:hover{
+  fill: #f1ecec;
 }

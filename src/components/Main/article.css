@@ -58,3 +58,21 @@
   padding: 0.2rem;
   font-size: 1rem;
 }
+
+.comments-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.7rem
+}
+.comments-wrap span{
+  font-size: 1.2rem;
+}
+.comments-wrap .chat-icon{
+  height: 30px;
+  width: 30px;
+}
+.comments-wrap .chat-icon:hover{
+  fill: rgb(221, 119, 9);
+  cursor: pointer;
+}

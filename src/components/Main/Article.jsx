@@ -1,7 +1,8 @@
+import { ChatIcon } from '../Icons';
 import './article.css'
 import day1Title from '/assets/corgi/articles/day1/corgi-running.webp'
 
-function Article() {
+function Article({ onToggleChat }) {
   return (
       <div className="article-container">
         <div className="title">
@@ -29,6 +30,11 @@ function Article() {
             </div>
           </div>
 
+        </div>
+
+        <div className='comments-wrap' onClick={onToggleChat}>
+          <span>10 Comments</span>
+          <ChatIcon className='chat-icon'/>
         </div>
       </div>
 
