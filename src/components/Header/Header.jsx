@@ -1,9 +1,9 @@
 import './header.css'
 import corgiHeader from '/assets/corgi/corgi-header.webp';
 
-function Header({ onMenuToggle, menuBtnRef }) {
+function Header({ onMenuToggle, menuBtnRef, headerRef }) {
   return (
-    <header className="header-container">
+    <header className="header-container" ref={headerRef}>
       <div className="top-section">
         <img className="corgi-header-img" src={corgiHeader} alt="corgi face" />
         <div className="header-title">

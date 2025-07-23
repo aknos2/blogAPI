@@ -3,7 +3,7 @@ import Article from "./Article";
 import MessageBoard from './MessageBoard';
 import { useState } from 'react';
 
-function MainContent() {
+function MainContent({ headerPosition }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -14,7 +14,7 @@ function MainContent() {
     <main>
       <div></div>
       <Article onToggleChat={toggleChat} />
-      <MessageBoard isChatOpen={isChatOpen}/>
+      <MessageBoard isChatOpen={isChatOpen} headerPosition={headerPosition} onToggleChat={toggleChat}/>
     </main>
   )
 }

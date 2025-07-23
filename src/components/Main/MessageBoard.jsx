@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import './messageBoard.css';
 import profileImg from '/assets/corgi/profile/white-cat-icon.png'
-import { SendMsgIcon } from '../Icons';
+import { CloseIcon, SendMsgIcon } from '../Icons';
+import Button from '../Button';
 
-function MessageBoard({isChatOpen}) {
+function MessageBoard({isChatOpen, headerPosition, onToggleChat }) {
   const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
@@ -17,8 +18,21 @@ function MessageBoard({isChatOpen}) {
     setMessage('');
   };
 
+  // Position the message board right below the header on the right side
+  const style = {
+    position: 'fixed',
+    top: `${headerPosition.top}px`,
+    right: '0', // Keep some margin from the right edge
+    zIndex: 998,
+  };
+
   return(
-    <div className={`message-board-container ${isChatOpen ? 'slide-out-chat' : 'slide-in-chat'}`}>
+    <div className={`message-board-container ${isChatOpen ? 'slide-out-chat' : 'slide-in-chat'}`} style={style}>
+        <Button onClick={onToggleChat} 
+                ariaLabel='Close chat'
+                className='close-chat-btn'
+                text={<CloseIcon className={'close-icon'} />}
+                />
       <div className='message-wrap'>
         <img src={profileImg} alt="user icon" />
         <div>
@@ -39,9 +53,11 @@ function MessageBoard({isChatOpen}) {
           placeholder="Message..."
           rows={1}
         />
-        <button onClick={handleSend} aria-label="Send message">
-          <SendMsgIcon className={'send-msg-icon'}/>
-        </button>
+
+        <Button onClick={handleSend} 
+                ariaLabel='Send message'
+                text={<SendMsgIcon className={'send-msg-icon'} />}
+                />
       </div>
     </div>
   )
