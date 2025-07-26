@@ -2,8 +2,10 @@ import './mainContent.css';
 import Article from "./Article";
 import MessageBoard from './MessageBoard';
 import { useState } from 'react';
+import { useHeader } from '../Header/HeaderContext';
 
-function MainContent({ headerPosition }) {
+function MainContent() {
+  const { headerPosition } = useHeader();  // ✅ use context instead of prop
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {

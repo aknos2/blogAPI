@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import SideMenu from "./SideMenu/SideMenu";
+import { HeaderProvider } from "./Header/HeaderContext";
 
-function Layout({children}) {
+function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const [headerPosition, setHeaderPosition] = useState({ top: 0, left: 0, height: 0 });
@@ -14,7 +16,6 @@ function Layout({children}) {
 
   useEffect(() => {
     const updatePositions = () => {
-      // Update menu button position
       if (menuBtnRef.current) {
         const rect = menuBtnRef.current.getBoundingClientRect();
         setMenuPosition({
@@ -23,7 +24,6 @@ function Layout({children}) {
         });
       }
       
-      // Update header position
       if (headerRef.current) {
         const rect = headerRef.current.getBoundingClientRect();
         setHeaderPosition({
@@ -34,7 +34,6 @@ function Layout({children}) {
       }
     };
 
-    // Update positions on mount and resize
     updatePositions();
     window.addEventListener('resize', updatePositions);
     window.addEventListener('scroll', updatePositions);
@@ -52,9 +51,10 @@ function Layout({children}) {
         menuBtnRef={menuBtnRef}
         headerRef={headerRef}
       />
+      <HeaderProvider headerPosition={headerPosition}>
+        <Outlet />
+      </HeaderProvider>
       <SideMenu isOpen={isMenuOpen} position={menuPosition} />
-      {/* Pass header position to children */}
-      {React.cloneElement(children, { headerPosition })}
     </>
   )
 }

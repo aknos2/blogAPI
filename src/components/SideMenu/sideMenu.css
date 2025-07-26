@@ -96,31 +96,3 @@
   font-size: 1rem;
   outline-color: #ff9900;
 }
-
-/* Nav links */
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #333;
-  transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
-  color: #ff9900;
-  cursor: pointer;
-}
-
-.nav-links a {
-  text-decoration: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  outline: none;
-  border: 1px solid black;
-}

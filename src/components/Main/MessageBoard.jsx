@@ -27,7 +27,7 @@ function MessageBoard({isChatOpen, headerPosition, onToggleChat }) {
   };
 
   return(
-    <div className={`message-board-container ${isChatOpen ? 'slide-out-chat' : 'slide-in-chat'}`} style={style}>
+    <div className={`message-board-container ${isChatOpen ? 'slide-in-chat' : 'slide-out-chat'}`} style={style}>
         <Button onClick={onToggleChat} 
                 ariaLabel='Close chat'
                 className='close-chat-btn'

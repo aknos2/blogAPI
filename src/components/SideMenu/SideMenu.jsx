@@ -40,12 +40,10 @@ function SideMenu({isOpen, position}) {
         </div>
 
         <div className="categories-menu">
-          <div className="search">
-            <label htmlFor="category">Search</label>
-            <input type="search" id="category" name="category" placeholder="Search categories..." />
-          </div>
           <nav className="nav-links">
-            <a href="#">Categories</a>
+            <a href="#">Profile</a>
+            <a href="#">Create post</a>
+            <a href="#">My posts</a>
             <a href="#">Log out</a>
           </nav>
         </div>

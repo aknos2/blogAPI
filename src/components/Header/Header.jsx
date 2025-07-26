@@ -1,4 +1,5 @@
 import './header.css'
+import { Link } from 'react-router-dom';
 import corgiHeader from '/assets/corgi/corgi-header.webp';
 
 function Header({ onMenuToggle, menuBtnRef, headerRef }) {
@@ -7,8 +8,12 @@ function Header({ onMenuToggle, menuBtnRef, headerRef }) {
       <div className="top-section">
         <img className="corgi-header-img" src={corgiHeader} alt="corgi face" />
         <div className="header-title">
+        <Link to="/">
           <h1>Doggo</h1>
+        </Link>
+        <Link to="/">
           <h1>Diary</h1>
+        </Link>
         </div>
       </div>
 
@@ -23,7 +28,7 @@ function Header({ onMenuToggle, menuBtnRef, headerRef }) {
             </button>
           </li>
           <div className="right-side-nav">
-            <li><a href="#">Diary</a></li>
+            <li><Link to="library">Articles</Link></li>
             <li><a href="#">About</a></li>
           </div>
         </ul>
