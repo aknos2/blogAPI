@@ -40,6 +40,8 @@ export const articles = [
     date: "Thur, 17",
     tags: ["Activities", "Nature"],
     title: "Running around the park",
+    month: 'August',
+    year: '2025'
   },
   {
     pages: day1Pages,
@@ -47,6 +49,8 @@ export const articles = [
     date: "Fri, 18",
     tags: ["Friends", "Nature"],
     title: "Hello",
+    month: 'August',
+    year: '2025'
   },
   {
     pages: day1Pages,
@@ -54,6 +58,8 @@ export const articles = [
     date: "Sat, 19",
     tags: ["Food"],
     title: "A day with burger",
+    month: 'August',
+    year: '2025'
   },
   {
     pages: day1Pages,
@@ -61,6 +67,8 @@ export const articles = [
     date: "Wed, 24",
     tags: ["Activities", "City"],
     title: "City is nice",
+    month: 'August',
+    year: '2025'
   },
   {
     pages: day1Pages,
@@ -68,6 +76,8 @@ export const articles = [
     date: "Fri, 12",
     tags: ["Food", "Nature"],
     title: "Good food",
+    month: 'January',
+    year: '2025'
   },
   {
     pages: day1Pages,
@@ -75,13 +85,17 @@ export const articles = [
     date: "Mon, 29",
     tags: ["Friends", "Food"],
     title: "Eating with Kitty",
+    month: 'July',
+    year: '2025'
   },
   {
     pages: day1Pages,
     thumbnail: day1Title,
-    date: "Mon, 29",
+    date: "Mon, 31",
     tags: ["Friends", "Food"],
     title: "Eating with Kitty",
+    month: 'August',
+    year: '2024'
   },
 
 

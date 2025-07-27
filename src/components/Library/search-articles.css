@@ -1,0 +1,99 @@
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.new-posts-btn, .nav-links p {
+  font-size: 1.5rem;
+  padding: 0 1em;
+  transition: color 0.2s ease;
+  font-family: 'Playfair Display', "Times New Roman", Times, serif;
+  font-weight: 700;
+}
+
+.search-date {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  position: relative;
+}
+.search-date button {
+  background-color: transparent;
+  border: none;
+}
+.search-month {
+  position: absolute;
+  top: 100%; /* position just below the button */
+  left: 0;
+  z-index: 10;
+  background: white;
+  border: 1px solid #9f9f9f;
+  border-radius: 7px;
+  padding: 0.5rem;
+  overflow: hidden;
+
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.search-month.open-list {
+  max-height: 500px; /* Large enough to contain full list */
+  opacity: 1;
+  transform: translateY(0);
+}
+.search-month li {
+  display: flex;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+/* When dropdown is open, animate each item */
+.search-month.open-list li {
+  opacity: 1;
+  transform: translateY(0);
+}
+.search-year {
+  display: flex;
+  align-items: center;
+}
+.active-underline {
+  text-decoration: underline;
+}
+.search-month ul {
+  font-size: 1rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+.search-month li {
+  display: flex;
+}
+
+.new-posts-btn {
+  border: none;
+  background: transparent;
+  text-align: left;
+  margin-top: 1.5rem;
+}
+
+.category-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0 1.5rem;
+}
+.category-tags button {
+  background-color: whitesmoke;
+  border: 1px solid #9f9f9f;;
+}
+.active-tag {
+  background: rgba(255, 166, 0, 0.518) !important;
+}
