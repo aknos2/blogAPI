@@ -3,7 +3,7 @@ import { ArrowDownIcon } from "../Icons";
 import { articles } from '../../services/articles';
 import { useState } from "react";
 
-function SearchMonth({ year, className, onMonthClick }) {
+function SearchMonth({ year, className, onMonthClick, selectedYear, selectedMonth }) {
   // Count articles by month for the given year
   const monthMap = articles.reduce((acc, article) => {
     if (article.year === year) {
@@ -18,19 +18,26 @@ function SearchMonth({ year, className, onMonthClick }) {
   );
 
   return (
-    <div className={className}>
-      <ul>
-        {sortedMonths.map(([month, count]) => (
-          <li key={month} onClick={() => onMonthClick(month)}>
-            {month} <span>({count})</span>
-          </li>
-        ))}
+    <div className="search-month-wrap">
+      <ul className={className}>
+        {sortedMonths.map(([month, count]) => {
+          const isSelected = selectedYear === year && selectedMonth === month;
+          return (
+            <li 
+              key={month} 
+              onClick={() => onMonthClick(month)}
+              className={isSelected ? 'selected-month' : ''}
+            >
+              {month} <span>({count})</span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 }
 
-function SearchDate({ onMonthSelect }) {
+function SearchDate({ onMonthSelect, selectedYear, selectedMonth }) {
   const [openYear, setOpenYear] = useState(null);
 
   const toggleMonthList = (year) => {
@@ -39,22 +46,26 @@ function SearchDate({ onMonthSelect }) {
 
   return (
     <div className="search-date">
-      {["2024", "2025"].map((year) => (
-        <div className={`search-month-wrapper`} key={year}>
-          <div className='search-year' 
-               onClick={() => toggleMonthList(year)}>
-            <Button text={year} className={`${openYear === year ? 'active-underline' : ''}`}/>
+      <div className="year-buttons">
+        {["2024", "2025"].map((year) => (
+          <div className="search-year" key={year} onClick={() => toggleMonthList(year)}>
+            <Button text={year} className={`${openYear === year ? 'active-underline' : ''}`} />
             <ArrowDownIcon />
           </div>
-          <SearchMonth
-            year={year}
-            className={`search-month ${openYear === year ? 'open-list' : ''}`}
-            onMonthClick= {(month) => onMonthSelect(year, month)}
-          />
-        </div>
-      ))}
+        ))}
+      </div>
+      
+      {openYear && (
+        <SearchMonth
+          year={openYear}
+          className={`search-month ${openYear ? 'open-list' : ''}`}
+          onMonthClick={(month) => onMonthSelect(openYear, month)}
+          selectedYear={selectedYear}
+          selectedMonth={selectedMonth}
+        />
+      )}
     </div>
-  )
+  );
 }
 
 export default SearchDate;

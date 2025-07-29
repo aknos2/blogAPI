@@ -29,7 +29,7 @@ function Header({ onMenuToggle, menuBtnRef, headerRef }) {
           </li>
           <div className="right-side-nav">
             <li><Link to="library">Articles</Link></li>
-            <li><a href="#">About</a></li>
+            <li><Link to="about">About</Link></li>
           </div>
         </ul>
       </nav>

@@ -19,8 +19,7 @@ function Library() {
     const matchesYear = !selectedYear || article.year === selectedYear;
     const matchesMonth = !selectedMonth || article.month.toLowerCase() === selectedMonth.toLowerCase();
     const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => article.tags.includes(tag));
-    const matchesSearch = article.title.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
-      article.pages.some(page => page.content.toLowerCase().includes(searchQuery.trim().toLowerCase()));
+    const matchesSearch = article.title.toLowerCase().includes(searchQuery.trim().toLowerCase());
 
     return matchesYear && matchesMonth && matchesTags && matchesSearch;
   })
@@ -43,6 +42,10 @@ function Library() {
     );
   };
 
+  const handleSearchTool = (e) => {
+    setSearchQuery(e.target.value);
+  }
+
 
   return (
     <div className='library-container'>
@@ -50,16 +53,26 @@ function Library() {
         <div className='search-menu'>
           <div className="search">
             <label htmlFor="category">Search</label>
-            <input type="search" id="category" name="category" placeholder="Search categories..." />
+            <input type="search" 
+                   id="category" 
+                   name="category" 
+                   placeholder="Search by title..." 
+                   value={searchQuery}
+                   onChange={handleSearchTool}
+                   />
           </div>
           <nav className="nav-links">
             <Button onClick={handleNewPostsClick} 
-                    text="NEW POSTS"
+                    text="THIS MONTH"
                     className={`new-posts-btn ${selectedYear === latestYear && selectedMonth === latestMonth ? 'active-underline' : ''}`}
                     />
             <div className='date-wrap'>
               <p>DATE</p>
-              <SearchDate onMonthSelect={handleMonthSelect}/>
+              <SearchDate 
+                onMonthSelect={handleMonthSelect}
+                selectedYear={selectedYear}
+                selectedMonth={selectedMonth}
+              />
             </div>
             <div className='category-wrap'>
               <p>CATEGORIES</p>

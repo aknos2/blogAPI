@@ -19,11 +19,14 @@
 }
 
 .search-menu {
-  flex: 0.3;
+  flex: 0.38;
   background-color: #cfcfcf35;
   padding: 0.5rem;
+  padding-top: 2rem;
   position: relative;
   z-index: 5;
+  border-style: outset;
+  overflow-y: auto;
 }
 
 .articles-compilation {
@@ -142,5 +145,8 @@ figcaption h3 {
   .search-month ul {
     font-size: 1.5rem;
     grid-template-columns: 1fr 1fr;
+  }
+  .search-menu {
+    flex: 0.3;
   }
 }

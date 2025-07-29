@@ -5,6 +5,8 @@ import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Library from './components/Library/Library.jsx'
+import About from './components/About/About.jsx'
+import Credits from './components/About/Credits.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: "library",
         element: <Library />
+      },
+      {
+        path: "about",
+        element: <About />
+      },
+      {
+        path: "credits",
+        element: <Credits />
       }
     ]
   },
@@ -27,5 +37,5 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router}/>
-  </StrictMode>,
+  </StrictMode>
 )
