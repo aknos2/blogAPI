@@ -1,30 +1,63 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon, ChatIcon, HeartIcon } from '../Icons';
 import Button from '../Button';
 import './article.css';
-import { articles } from '../../services/articles';
+import { fetchPosts } from '../../../api/posts';
 
 function Article({ onToggleChat }) {
+  const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const currentArticle = articles[0]; // You can change this logic later
-  const totalPages = currentArticle.pages.length;
-  const currentPageData = currentArticle.pages[currentPage];
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const res = await fetchPosts();
+        setPosts(res.data);
+      } catch (err) {
+        console.error('Failed to fetch posts:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPosts();
+  }, []);
+
+  // Show loading state
+  if (loading) return <div>Loading...</div>;
+  
+  // Show no posts message if empty
+  if (!posts || posts.length === 0) {
+    return <div>No posts available.</div>;
+  }
+
+  const currentArticle = posts[posts.length - 1];
+  
+  // Additional safety check for postPage
+  if (!currentArticle || !currentArticle.postPage || currentArticle.postPage.length === 0) {
+    return <div>No article content available.</div>;
+  }
+
+  const totalPages = currentArticle.postPage.length;
+  const currentPageData = currentArticle.postPage[currentPage];
 
   const renderLayout = (pageData) => {
+    // Get the first image from PageImage array
+    const pageImage = pageData.PageImage?.[0]?.image;
+
     switch (pageData.layout) {
       case "titlePage":
         return (
           <>
             <div className="title">
-              <h2>{pageData.title}</h2>
+              <h2>{currentArticle.title}</h2>
               <div className='sub-title'>
-                <p>{pageData.date}</p>
+                <p>{currentArticle.createdAt.slice(0, 10)}</p>
                 <div className='tags'>
-                  {pageData.tags.map((tag, index) => (
-                    <a key={index}>{tag}</a>
-                  ))}
+                  {currentArticle.tags?.map((tag, index) => (
+                    <a key={index}>{tag.name}</a>
+                  )) || []}
                 </div>
               </div>
             </div>
@@ -32,7 +65,12 @@ function Article({ onToggleChat }) {
             <div className={`page-content ${isSliding ? 'sliding' : ''}`}>
               <div className="content-grid-titlePage">
                 <div className="img-content">
-                  <img src={pageData.image} alt={pageData.imageAlt} />
+                   {pageImage && (
+                  <img 
+                    src={pageImage.url} 
+                    alt={pageImage.altText || pageData.PageImage?.[0]?.caption || 'image'} 
+                  />
+                )}
                 </div>
                 <div className="text-content">
                   <h4>{pageData.heading}</h4>
@@ -50,7 +88,12 @@ function Article({ onToggleChat }) {
         return (
           <div className="content-grid-horizontalImage">
             <div className="img-content">
-              <img src={pageData.image} alt={pageData.imageAlt} />
+               {pageImage && (
+                  <img 
+                    src={pageImage.url} 
+                    alt={pageImage.altText || pageData.PageImage?.[0]?.caption || 'image'} 
+                  />
+                )}
             </div>
             <div className="text-content">
               <p>{pageData.subtitle}</p>
@@ -60,6 +103,8 @@ function Article({ onToggleChat }) {
             </div>
           </div>
         );
+      default:
+        return <div>Unsupported layout</div>;
     }
   };
 
@@ -100,7 +145,7 @@ function Article({ onToggleChat }) {
             </button>
           </div>
           <div className='comment-chat-wrap' onClick={onToggleChat}>
-            <span>10 Comments</span>
+            <span>{currentArticle.comments?.length || 0} Comments</span>
             <ChatIcon className='chat-icon' />
           </div>
         </div>

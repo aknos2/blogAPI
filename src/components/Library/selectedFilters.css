@@ -37,15 +37,32 @@
   color: #fffcfc;
   font-weight: bold;
   cursor: pointer;
+  text-align: left;
+  transform: translateX(-0.1rem);
 }
 
 figcaption .month-title {
   position: absolute;
-  top: 0;
-  color: #fff;
+  top: 5%;
   padding: 0.5rem;
   transform: translateY(0.5rem);
-  font-size: 1.3rem;
   background: rgba(0, 0, 0, 0.153);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.items-center {
+  display: flex;
+  font-weight: 400;
+}
+.filter-item .items-center::first-letter {
+  text-transform: capitalize;
+}
+
+.month-title button {
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
 }

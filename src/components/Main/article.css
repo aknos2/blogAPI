@@ -58,6 +58,9 @@
   font-family: 'Droid Serif', serif;
   color: #2f2f2f;
 }
+.content-grid-titlePage .text-content{
+  padding: 1rem 0;
+}
 
 .title h2 {
   margin-bottom: 0.1rem;
@@ -75,13 +78,16 @@
 .tags a {
   background-color: orange;
   border-radius: 5px;
-  padding: 0.2rem;
-  font-size: 1rem;
+  padding: 0.3rem;
+  font-size: 1.2rem;
   transition: background-color 0.2s ease;
 }
 .tags a:hover {
   background-color: #e6851a;
   cursor: pointer;
+}
+.tags a::first-letter {
+  text-transform: capitalize;
 }
 
 .content-bottom {

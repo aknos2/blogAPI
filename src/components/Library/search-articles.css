@@ -138,6 +138,9 @@
 .category-tags button:hover {
   background: rgba(255, 166, 0, 0.218)
 }
+.category-tags button::first-letter {
+  text-transform: capitalize;
+}
 .active-tag {
   background: rgba(255, 166, 0, 0.518) !important;
 }

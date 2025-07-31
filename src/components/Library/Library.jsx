@@ -1,28 +1,72 @@
-import { useState } from 'react';
-import { articles } from '../../services/articles';
+import { useEffect, useState } from 'react';
 import { CommentsIcon, HeartIcon } from '../Icons';
 import './library.css';
 import './search-articles.css';
 import SearchDate from './SearchArticles';
 import Button from '../Button';
-import { latestMonth, latestYear } from '../../services/getLatestDates';
+import { getLatestDates, currentYear, currentMonth } from '../../utils/getLatestDates';
 import SelectedFilters from './SelectedFilters';
+import { fetchPosts } from '../../../api/posts';
 
 function Library() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const allTags = [...new Set(articles.flatMap(article => article.tags || []))];
+  
+  // Get latest dates from current articles
+  const { latestYear, latestMonth } = getLatestDates(articles);
+  
+  // Use current date as fallback if no articles
+  const displayLatestYear = latestYear || currentYear;
+  const displayLatestMonth = latestMonth || currentMonth;
+  
+  // Process articles to extract all unique tag names
+  const allTags = [...new Set(articles.flatMap(article => 
+    article.tags?.map(tag => tag.name) || []
+  ))];
+
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const res = await fetchPosts();
+        console.log('Library posts response:', res.data); // Debug log
+        setArticles(res.data);
+      } catch (err) {
+        console.error('Failed to fetch posts:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPosts();
+  }, []);
+
+  // Show loading state
+  if (loading) return <div>Loading...</div>;
+  
+  // Show no posts message if empty
+  if (!articles || articles.length === 0) {
+    return <div>No posts available.</div>;
+  }
 
   const filteredArticles = articles.filter(article => {
-    const matchesYear = !selectedYear || article.year === selectedYear;
-    const matchesMonth = !selectedMonth || article.month.toLowerCase() === selectedMonth.toLowerCase();
-    const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => article.tags.includes(tag));
+    // Extract year and month from createdAt
+    const articleDate = new Date(article.createdAt);
+    const articleYear = articleDate.getFullYear();
+    const articleMonth = articleDate.toLocaleString('default', { month: 'long' });
+    
+    // Get tag names for comparison
+    const articleTagNames = article.tags?.map(tag => tag.name) || [];
+    
+    const matchesYear = !selectedYear || articleYear === selectedYear;
+    const matchesMonth = !selectedMonth || articleMonth.toLowerCase() === selectedMonth.toLowerCase();
+    const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => articleTagNames.includes(tag));
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.trim().toLowerCase());
 
     return matchesYear && matchesMonth && matchesTags && matchesSearch;
-  })
+  });
 
   const handleMonthSelect = (year, month) => {
     setSelectedYear(year);
@@ -30,8 +74,8 @@ function Library() {
   };
 
   const handleNewPostsClick = () => {
-    setSelectedYear(latestYear);
-    setSelectedMonth(latestMonth);
+    setSelectedYear(displayLatestYear);
+    setSelectedMonth(displayLatestMonth);
   };
 
   const handleTagsSelect = (tag) => {
@@ -44,8 +88,17 @@ function Library() {
 
   const handleSearchTool = (e) => {
     setSearchQuery(e.target.value);
-  }
+  };
 
+  // Helper function to format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  };
 
   return (
     <div className='library-container'>
@@ -64,7 +117,7 @@ function Library() {
           <nav className="nav-links">
             <Button onClick={handleNewPostsClick} 
                     text="THIS MONTH"
-                    className={`new-posts-btn ${selectedYear === latestYear && selectedMonth === latestMonth ? 'active-underline' : ''}`}
+                    className={`new-posts-btn ${selectedYear === displayLatestYear && selectedMonth === displayLatestMonth ? 'active-underline' : ''}`}
                     />
             <div className='date-wrap'>
               <p>DATE</p>
@@ -77,11 +130,11 @@ function Library() {
             <div className='category-wrap'>
               <p>CATEGORIES</p>
               <div className='category-tags'>
-                {allTags.map((tag, index) => (
-                  <Button text={tag} 
+                {allTags.map((tagName, index) => (
+                  <Button text={tagName} 
                           key={index} 
-                          onClick={() => handleTagsSelect(tag)}
-                          className={selectedTags.includes(tag) ? 'active-tag' : ''}
+                          onClick={() => handleTagsSelect(tagName)}
+                          className={selectedTags.includes(tagName) ? 'active-tag' : ''}
                           />
                 ))}
               </div>
@@ -89,20 +142,29 @@ function Library() {
           </nav>
         </div>
         
-          <div className='articles-compilation'>
-            {filteredArticles.length > 0 ? (
-              filteredArticles.map((article, index) => (
-                <figure className="article-card" key={index}>
-                  <img src={article.thumbnail} alt="Article thumbnail" />
-                  <figcaption>
-                    <h3 className='card-date'>{article.date}</h3>
-                    <div className='card-stats'>
-                      <div className='stats-wrap'><HeartIcon/> <p>3</p></div>
-                      <div className='stats-wrap'><CommentsIcon/> <p>20</p></div>
+        <div className='articles-compilation'>
+          {filteredArticles.length > 0 ? (
+            filteredArticles.map((article, index) => (
+              <figure className="article-card" key={article.id || index}>
+                <img 
+                  src={article.thumbnail?.url} 
+                  alt={article.thumbnail?.altText || 'Article thumbnail'} 
+                />
+                <figcaption>
+                  <h3 className='card-date'>{formatDate(article.createdAt)}</h3>
+                  <div className='card-stats'>
+                    <div className='stats-wrap'>
+                      <HeartIcon/> 
+                      <p>{article.Like?.length || 0}</p>
                     </div>
-                    {/* ✅ Only show this extra text on the first article */}
-                     {index === 0 &&  
-                     <SelectedFilters
+                    <div className='stats-wrap'>
+                      <CommentsIcon/> 
+                      <p>{article.comments?.length || 0}</p>
+                    </div>
+                  </div>
+                  {/* Only show this extra text on the first article */}
+                  {index === 0 &&  
+                    <SelectedFilters
                       className="month-title"
                       selectedYear={selectedYear}
                       setSelectedYear={setSelectedYear}
@@ -112,17 +174,18 @@ function Library() {
                       setSelectedTags={setSelectedTags}
                       searchQuery={searchQuery}
                       setSearchQuery={setSearchQuery}
-                    />}
-                  </figcaption>
-                </figure>
-              ))
-            ) : (
-              <p className='not-found'>No articles found</p>
-            )}
-          </div>
+                    />
+                  }
+                </figcaption>
+              </figure>
+            ))
+          ) : (
+            <p className='not-found'>No articles found</p>
+          )}
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Library;
