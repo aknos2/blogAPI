@@ -51,9 +51,12 @@ nav ul {
   display: flex;
   gap: 2rem;
 }
+.left-side-nav {
+  display: flex;
+  gap: 1rem;
+}
 
-.menu-toggle-btn {
+.menu-toggle-btn, .theme-btn {
   border: none;
   background-color: transparent;
-
 }

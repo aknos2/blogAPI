@@ -3,8 +3,10 @@ import { ArrowLeftIcon, ArrowRightIcon, ChatIcon, HeartIcon } from '../Icons';
 import Button from '../Button';
 import './article.css';
 import { fetchPosts } from '../../../api/posts';
+import { useParams } from 'react-router-dom';
 
-function Article({ onToggleChat }) {
+function Article({ onToggleChat, onPostChange }) {
+  const { articleId } = useParams(); // Get article ID from url
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
@@ -24,6 +26,18 @@ function Article({ onToggleChat }) {
     loadPosts();
   }, []);
 
+  // Select article based on ID from URL, or default to latest
+  const currentArticle = articleId 
+    ? posts.find(post => post.id === articleId) 
+    : posts[posts.length - 1];
+
+  // Notify parent component when current article changes
+  useEffect(() => {
+    if (currentArticle && currentArticle.id && onPostChange) {
+      onPostChange(currentArticle.id);
+    }
+  }, [currentArticle, onPostChange]);
+
   // Show loading state
   if (loading) return <div>Loading...</div>;
   
@@ -31,8 +45,11 @@ function Article({ onToggleChat }) {
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>;
   }
-
-  const currentArticle = posts[posts.length - 1];
+  
+  // Handle case where article with specific ID is not found
+  if (articleId && !currentArticle) {
+    return <div>Article not found.</div>;
+  }
   
   // Additional safety check for postPage
   if (!currentArticle || !currentArticle.postPage || currentArticle.postPage.length === 0) {

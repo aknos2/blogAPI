@@ -7,8 +7,10 @@ import Button from '../Button';
 import { getLatestDates, currentYear, currentMonth } from '../../utils/getLatestDates';
 import SelectedFilters from './SelectedFilters';
 import { fetchPosts } from '../../../api/posts';
+import { useNavigate } from 'react-router-dom';
 
 function Library() {
+  const navigate = useNavigate();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState(null);
@@ -68,6 +70,10 @@ function Library() {
     return matchesYear && matchesMonth && matchesTags && matchesSearch;
   });
 
+  const handleArticleClick = (articleId) => {
+    navigate(`/post/${articleId}`);
+  }
+
   const handleMonthSelect = (year, month) => {
     setSelectedYear(year);
     setSelectedMonth(month);
@@ -114,13 +120,13 @@ function Library() {
                    onChange={handleSearchTool}
                    />
           </div>
-          <nav className="nav-links">
+          <nav className="search-nav-links">
             <Button onClick={handleNewPostsClick} 
                     text="THIS MONTH"
                     className={`new-posts-btn ${selectedYear === displayLatestYear && selectedMonth === displayLatestMonth ? 'active-underline' : ''}`}
                     />
             <div className='date-wrap'>
-              <p>DATE</p>
+              <p className='search-title'>DATE</p>
               <SearchDate 
                 onMonthSelect={handleMonthSelect}
                 selectedYear={selectedYear}
@@ -128,7 +134,7 @@ function Library() {
               />
             </div>
             <div className='category-wrap'>
-              <p>CATEGORIES</p>
+              <p className='search-title'>CATEGORIES</p>
               <div className='category-tags'>
                 {allTags.map((tagName, index) => (
                   <Button text={tagName} 
@@ -145,7 +151,7 @@ function Library() {
         <div className='articles-compilation'>
           {filteredArticles.length > 0 ? (
             filteredArticles.map((article, index) => (
-              <figure className="article-card" key={article.id || index}>
+              <figure className="article-card" key={article.id || index} onClick={() => handleArticleClick(article.id)}>
                 <img 
                   src={article.thumbnail?.url} 
                   alt={article.thumbnail?.altText || 'Article thumbnail'} 

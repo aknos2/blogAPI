@@ -7,6 +7,8 @@ import Layout from './components/Layout.jsx'
 import Library from './components/Library/Library.jsx'
 import About from './components/About/About.jsx'
 import Credits from './components/About/Credits.jsx'
+import Article from './components/Main/Article.jsx'
+import SignUp from './components/Login-Subscribe/Signup.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,12 +25,20 @@ const router = createBrowserRouter([
         element: <Library />
       },
       {
+        path: "post/:articleId", // Add this route for specific articles
+        element: <Article />
+      },
+      {
         path: "about",
         element: <About />
       },
       {
         path: "credits",
         element: <Credits />
+      },
+      {
+        path: "signup",
+        element: <SignUp />
       }
     ]
   },

@@ -3,16 +3,25 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import SideMenu from "./SideMenu/SideMenu";
 import { HeaderProvider } from "./Header/HeaderContext";
+import LoginScreen from "./Login-Subscribe/Login";
 
 function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const [headerPosition, setHeaderPosition] = useState({ top: 0, left: 0, height: 0 });
+  const [isLoginScreenOpen, setIsLoginScreenOpen] = useState(false);
   
   const menuBtnRef = useRef(null);
   const headerRef = useRef(null);
 
   const toggleMenu = () => setIsMenuOpen(prev => !prev);
+  const toggleLogin = () => {
+    setIsLoginScreenOpen(prev => !prev);
+    if (isMenuOpen) {
+      setIsMenuOpen(prev => !prev)
+    }
+  }
+
 
   useEffect(() => {
     const updatePositions = () => {
@@ -54,7 +63,14 @@ function Layout() {
       <HeaderProvider headerPosition={headerPosition}>
         <Outlet />
       </HeaderProvider>
-      <SideMenu isOpen={isMenuOpen} position={menuPosition} />
+      <SideMenu isOpen={isMenuOpen} 
+                position={menuPosition} 
+                onToggleLogin={toggleLogin}
+                onMenuToggle={toggleMenu}
+                />
+      {isLoginScreenOpen && (
+        <LoginScreen onToggleLogin={toggleLogin}/>
+      )}
     </>
   )
 }
