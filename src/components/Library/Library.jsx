@@ -6,12 +6,13 @@ import SearchDate from './SearchArticles';
 import Button from '../Button';
 import { getLatestDates, currentYear, currentMonth } from '../../utils/getLatestDates';
 import SelectedFilters from './SelectedFilters';
-import { fetchPosts } from '../../../api/posts';
+import { fetchPosts, fetchUnpublishedPosts } from '../../../api/posts';
 import { useNavigate } from 'react-router-dom';
 
 function Library() {
   const navigate = useNavigate();
   const [articles, setArticles] = useState([]);
+  const [unpublishedArticles, setUnpublishedArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
@@ -45,6 +46,21 @@ function Library() {
     loadPosts();
   }, []);
 
+  useEffect(() => {
+    async function loadUnpublishedPosts() {
+      try {
+        const res = await fetchUnpublishedPosts();
+        console.log('Library posts response:', res.data); // Debug log
+        setUnpublishedArticles(res.data);
+      } catch (err) {
+        console.error('Failed to fetch posts:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadUnpublishedPosts();
+  }, []);
+
   // Show loading state
   if (loading) return <div>Loading...</div>;
   
@@ -54,6 +70,23 @@ function Library() {
   }
 
   const filteredArticles = articles.filter(article => {
+    // Extract year and month from createdAt
+    const articleDate = new Date(article.createdAt);
+    const articleYear = articleDate.getFullYear();
+    const articleMonth = articleDate.toLocaleString('default', { month: 'long' });
+    
+    // Get tag names for comparison
+    const articleTagNames = article.tags?.map(tag => tag.name) || [];
+    
+    const matchesYear = !selectedYear || articleYear === selectedYear;
+    const matchesMonth = !selectedMonth || articleMonth.toLowerCase() === selectedMonth.toLowerCase();
+    const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => articleTagNames.includes(tag));
+    const matchesSearch = article.title.toLowerCase().includes(searchQuery.trim().toLowerCase());
+
+    return matchesYear && matchesMonth && matchesTags && matchesSearch;
+  });
+
+  const filteredUnpublishedArticles = unpublishedArticles.filter(article => {
     // Extract year and month from createdAt
     const articleDate = new Date(article.createdAt);
     const articleYear = articleDate.getFullYear();
@@ -167,9 +200,7 @@ function Library() {
                       <CommentsIcon/> 
                       <p>{article.comments?.length || 0}</p>
                     </div>
-                  </div>
-                  {/* Only show this extra text on the first article */}
-                  {index === 0 &&  
+                  </div>  
                     <SelectedFilters
                       className="month-title"
                       selectedYear={selectedYear}
@@ -181,12 +212,11 @@ function Library() {
                       searchQuery={searchQuery}
                       setSearchQuery={setSearchQuery}
                     />
-                  }
                 </figcaption>
               </figure>
             ))
           ) : (
-            <p className='not-found'>No articles found</p>
+             <div>No articles found</div>
           )}
         </div>
       </div>

@@ -15,12 +15,18 @@
   }
 }
 
+html {
+  overflow: hidden;
+}
+
 body {
   /* 4. Add accessible line-height */
   line-height: 1.5;
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   font-size: 1.6rem; /* equals 16px */ 
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* 6. Improve media defaults */
@@ -52,6 +58,22 @@ h1, h2, h3, h4, h5, h6 {
 */
 #root, #__next {
   isolation: isolate;
+}
+
+/*
+  12. Prevent text/img from being selectable
+*/
+.no-select {
+  user-select: none;          /* Standard */
+  -webkit-user-select: none;  /* Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* Internet Explorer/Edge */
+}
+textarea::placeholder {
+  user-select: none;          /* Standard */
+  -webkit-user-select: none;  /* Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* Internet Explorer/Edge */
 }
 
 

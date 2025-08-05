@@ -1,55 +1,58 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import SideMenu from "./SideMenu/SideMenu";
-import { HeaderProvider } from "./Header/HeaderContext";
 import LoginScreen from "./Login-Subscribe/Login";
 
 function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
-  const [headerPosition, setHeaderPosition] = useState({ top: 0, left: 0, height: 0 });
   const [isLoginScreenOpen, setIsLoginScreenOpen] = useState(false);
-  
-  const menuBtnRef = useRef(null);
-  const headerRef = useRef(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const toggleMenu = () => setIsMenuOpen(prev => !prev);
   const toggleLogin = () => {
-    setIsLoginScreenOpen(prev => !prev);
+      setIsLoginScreenOpen(prev => !prev);
     if (isMenuOpen) {
       setIsMenuOpen(prev => !prev)
     }
   }
 
+  // Show success message when auth state changes (login/signup)
+  const handleAuthStateChange = () => {
+    const loginSuccess = localStorage.getItem("loginSuccess");
+    const signupSuccess = localStorage.getItem("signupSuccess");
+    const token = localStorage.getItem("accessToken");
+    
+    // Show login success message if user just logged in
+    if (loginSuccess === "true" && token) {
+      setSuccessMessage("Login successful!");
+      setShowSuccessMessage(true);
+      localStorage.removeItem("loginSuccess");
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+    }
+    // Show signup success message
+    else if (signupSuccess === "true") {
+      setSuccessMessage("Account created! You can now log in.");
+      setShowSuccessMessage(true);
+      localStorage.removeItem("signupSuccess");
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 4000); // Slightly longer for signup message
+    }
+  };
 
   useEffect(() => {
-    const updatePositions = () => {
-      if (menuBtnRef.current) {
-        const rect = menuBtnRef.current.getBoundingClientRect();
-        setMenuPosition({
-          top: rect.bottom + window.scrollY,
-          left: rect.left + window.scrollX
-        });
-      }
-      
-      if (headerRef.current) {
-        const rect = headerRef.current.getBoundingClientRect();
-        setHeaderPosition({
-          top: rect.bottom + window.scrollY,
-          left: rect.right + window.scrollX,
-          height: rect.height
-        });
-      }
-    };
+    // Check on mount (for page refreshes after login)
+    handleAuthStateChange();
 
-    updatePositions();
-    window.addEventListener('resize', updatePositions);
-    window.addEventListener('scroll', updatePositions);
-
+    // Listen for auth state changes (for same-session logins)
+    window.addEventListener('authStateChange', handleAuthStateChange);
+    
     return () => {
-      window.removeEventListener('resize', updatePositions);
-      window.removeEventListener('scroll', updatePositions);
+      window.removeEventListener('authStateChange', handleAuthStateChange);
     };
   }, []);
 
@@ -57,19 +60,20 @@ function Layout() {
     <>
       <Header 
         onMenuToggle={toggleMenu}
-        menuBtnRef={menuBtnRef}
-        headerRef={headerRef}
       />
-      <HeaderProvider headerPosition={headerPosition}>
         <Outlet />
-      </HeaderProvider>
-      <SideMenu isOpen={isMenuOpen} 
-                position={menuPosition} 
-                onToggleLogin={toggleLogin}
-                onMenuToggle={toggleMenu}
-                />
+        <SideMenu 
+          isOpen={isMenuOpen} 
+          onToggleLogin={toggleLogin}
+          onMenuToggle={toggleMenu}
+        />
       {isLoginScreenOpen && (
-        <LoginScreen onToggleLogin={toggleLogin}/>
+        <div className="background-overlay">
+          <LoginScreen onToggleLogin={toggleLogin}/>
+        </div>
+      )}
+      {showSuccessMessage && (
+        <div className="success-login-message slide-in-message"><span>{successMessage}</span></div>
       )}
     </>
   )

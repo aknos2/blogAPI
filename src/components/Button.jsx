@@ -7,6 +7,7 @@ function Button({
   className = "",
   tabIndex = 0,
   ariaLabel= "",
+  disabled,
 }) {
     const buttonStyle = {
         color: color,
@@ -14,7 +15,13 @@ function Button({
     }
 
     return (
-        <button style={buttonStyle} onClick={onClick} id={id} className={className} tabIndex={tabIndex} ariaLabel={ariaLabel}>
+        <button style={buttonStyle} 
+                onClick={onClick} 
+                id={id} 
+                className={className} 
+                tabIndex={tabIndex} 
+                aria-label={ariaLabel} 
+                disabled={disabled}>
             {text}
         </button>
     )
