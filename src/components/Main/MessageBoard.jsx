@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './messageBoard.css';
 import profileImg from '/assets/corgi/profile/white-cat-icon.png'
 import { CloseIcon, SendMsgIcon } from '../Icons';
 import Button from '../Button';
 import { createComment, fetchCommentsByPostId } from '../../../api/posts';
+import { useAuth } from '../../context/useAuthContext';
 
-function MessageBoard({ isChatOpen, onToggleChat, postId, isAuthenticated, user, onAuthChange }) {
+function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
   const [message, setMessage] = useState('');
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loginMessage, setLoginMessage] = useState('');
+
+  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
 
   useEffect(() => {
     async function loadComments() {
@@ -31,37 +34,32 @@ function MessageBoard({ isChatOpen, onToggleChat, postId, isAuthenticated, user,
     setMessage(e.target.value);
   };
 
-  const handleSend = async () => {
+  const handleSend = useCallback(async () => {
     if (!isAuthenticated) {
       setLoginMessage('Log in to post a message');
       setTimeout(() => setLoginMessage(''), 3000);
       return;
     }
-
     if (message.trim() === '') return;
 
     try {
       const res = await createComment(message, postId);
-      // Add the new comment with user information
-      const newComment = {
-        ...res.data,
-        user: user // Use the user data from props
-      };
+      const newComment = res.data;
       setComments(prev => [newComment, ...prev]);
       setMessage('');
-    } catch(err) {
+    } catch (err) {
       console.error('Failed to send comment:', err);
-      
-      // Handle authentication errors
+
       if (err.response?.status === 401) {
         setLoginMessage('Session expired. Please log in again.');
         setTimeout(() => setLoginMessage(''), 3000);
-        onAuthChange(false, null); // Update parent auth state
+        setIsAuthenticated(false);
+        setUser(null);
       } else {
         setLoginMessage('Failed to send a message.');
       }
     }
-  };
+  }, [isAuthenticated, message, postId, setIsAuthenticated, setUser]);
 
   useEffect(() => {
     const container = document.querySelector('.message-board-container');

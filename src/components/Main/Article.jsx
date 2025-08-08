@@ -4,9 +4,11 @@ import Button from '../Button';
 import './article.css';
 import { fetchPosts, togglePostLike } from '../../../api/posts';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../context/useAuthContext';
 
-function Article({ onToggleChat, onPostChange, isAuthenticated, user, onAuthChange }) {
+function Article({ onToggleChat, onPostChange }) {
   const { articleId } = useParams();
+  const { isAuthenticated, user, authLoading } = useAuth();
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
@@ -51,7 +53,7 @@ function Article({ onToggleChat, onPostChange, isAuthenticated, user, onAuthChan
   // Select article based on ID from URL, or default to latest
   const currentArticle = articleId 
     ? posts.find(post => post.id === articleId) 
-    : posts[posts.length - 1];
+    : posts[0];
 
   // Notify parent component when current article changes
   useEffect(() => {
@@ -95,8 +97,8 @@ function Article({ onToggleChat, onPostChange, isAuthenticated, user, onAuthChan
     }
   };
 
-  // Show loading state
-  if (loading) return <div>Loading...</div>;
+  // Show loading state for both post loading and auth loading
+  if (loading || authLoading) return <div>Loading...</div>;
   
   // Handle case where article with specific ID is not found
   if (articleId && !currentArticle) {

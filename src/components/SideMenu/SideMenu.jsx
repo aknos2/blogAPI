@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './sideMenu.css'
 import profileImg from '/assets/corgi/profile/white-cat-icon.png'
 import Button from '../Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logoutAccount } from '../../../api/auth';
 import { fetchUserStats } from '../../../api/user';
 
@@ -128,9 +128,6 @@ function SideMenu({isOpen, onToggleLogin, onMenuToggle}) {
               />
             ) : (
               <>
-                <Link to="signup">
-                  <Button onClick={onMenuToggle} className="create-account-btn" text="Create account"/>
-                </Link>
                 <Button onClick={onToggleLogin} className='login-btn' text="Login"/>
               </>
             )}
