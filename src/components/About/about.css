@@ -7,10 +7,12 @@
   width: fit-content;
   margin: 0 auto;
   border-top: none;
+  background-color: var(--photo-container-color);
 }
 .about-container h1 {
   text-align: center;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--text-color);
+  color: var(--text-color);
 }
 
 .profile-img img{
@@ -63,7 +65,7 @@
   margin-top: 2rem;
   font-weight: 500;
   text-align: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--text-color);
 }
 .credits-link:hover {
   cursor: pointer;
@@ -77,14 +79,22 @@
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
-  border: 1px solid black;
+  border: 1px solid var(--container-border);
   width: fit-content;
   margin: 0 auto;
   padding: 2rem;
   border-top: none;
+  background-color: var(--photo-container-color);
+  overflow: auto;
+}
+.credits-container h1{
+  color: var(--text-color);
+}
+.credits-container li{
+  color: var(--text-color);
 }
 .credits-container a{
-  color: rgb(16, 16, 236);
+  color: var(--credits-links-color);
 }
 .credits-container h3 a{
   color: black;
@@ -102,6 +112,9 @@
   float: right;
   margin-top: 1rem;
 }
+.credits-back-btn-wrap svg{
+  fill: var(--text-color);
+}
 .credits-back-btn-wrap:hover {
   cursor: pointer;
 }
@@ -115,6 +128,51 @@
   }
   to {
     transform: translateX(10%);
+  }
+}
+
+@media(max-width: 678px) {
+  .about-container {
+    display: grid;
+    grid-template-rows: 3rem 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  .profile-img img{
+    max-width: 25rem;
+  }
+
+  .about-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .profile-content {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .profile-content .description {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .description .pt1 {
+    font-size: 1rem;
+    margin-left: 10px;
+  }
+
+  .github-icon svg{
+    width: 30px;
+    height: 30px;
+  }
+
+  .credits-container {
+    gap: 0.5rem;
+    padding: 2rem;
   }
 }
 

@@ -9,20 +9,22 @@ import Library from './components/Library/Library.jsx';
 import About from './components/About/About.jsx';
 import Credits from './components/About/Credits.jsx';
 import MainContent from './components/Main/MainContent.jsx';
-import SignUp from './components/Login-Subscribe/Signup.jsx';
 import { AuthProvider } from './context/AuthContext.jsx'; 
+import SignUp from './components/Login-Subscribe/SignUp.jsx';
+import ErrorPage from './components/Error.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorPage/>,
     children: [
       { index: true, element: <App /> },
       { path: "library", element: <Library /> },
       { path: "post/:articleId", element: <MainContent /> },
       { path: "about", element: <About /> },
       { path: "credits", element: <Credits /> },
-      { path: "signup", element: <SignUp /> }
+      { path: "signup", element: <SignUp /> },
     ]
   },
 ]);

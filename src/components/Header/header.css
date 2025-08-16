@@ -25,7 +25,7 @@
   height: auto;
   object-fit: cover;
   margin-bottom: -6.8rem; /* Pull it into the nav */
-  z-index: 2;
+  z-index: 99;
 }
 
 .header-title {
@@ -45,7 +45,6 @@
   width: 100%;
   border-bottom: 2px solid var(--nav-border);
   font-size: 1.6rem;
-  z-index: 2;
   background-color: var(--nav-bg-color);
   position: relative;
   z-index: 0; 
@@ -75,4 +74,62 @@ nav ul {
 .menu-toggle-btn, .theme-btn {
   border: none;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.theme-btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.theme-btn svg{
+  fill: var(--theme-icon);
+}
+
+
+@media (max-width: 768px) {
+  .header-title{
+    font-size: clamp(1rem, 4vw, 2.5rem);
+    gap: 5rem;
+  }
+
+  .header-container nav {
+    width: 100%;
+    border-bottom: 2px solid var(--nav-border);
+    font-size: 1rem;
+  }
+
+  .corgi-header-img {
+    width: clamp(100px, 15vw, 200px);
+    height: auto;
+    object-fit: cover;
+    margin-bottom: -4.5rem; /* Pull it into the nav */
+    z-index: 2;
+  }
+  nav ul {
+    padding: 0 1rem;
+    list-style: none;
+    padding-top: 1.25rem;
+  }
+  .right-side-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  .left-side-nav {
+    display: flex;
+    gap: 0;
+  }
+
+  .theme-btn svg{
+    width: 20px;
+    height: 20px;
+  }
+  .theme-text {
+    display: none;
+  }
+  .theme-btn-content {
+    gap: 0; 
+  }
 }

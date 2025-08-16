@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import corgiHeader from '/assets/corgi/corgi-header.webp';
 import Button from '../Button';
 import { useEffect, useState } from 'react';
+import { Pawn } from '../Icons';
 
-const themes = ["default", "green", "dark", "west"];
+const themes = ["Journal", "Dark", "West"];
 
 function Header({ onMenuToggle, menuBtnRef}) {
   const [themeIndex, setThemeIndex] = useState(0);
@@ -54,7 +55,16 @@ function Header({ onMenuToggle, menuBtnRef}) {
               </button>
             </li>
             <li>
-              <Button onClick={cycleTheme} className='theme-btn nav-links' text="Theme"/>
+           <Button
+                onClick={cycleTheme}
+                className="theme-btn nav-links"
+                text={
+                  <span className="theme-btn-content">
+                    <Pawn /> 
+                    <span className="theme-text">{themes[themeIndex]} mode</span>
+                  </span>
+                }
+              />
             </li>
           </div>
           <div className="right-side-nav">

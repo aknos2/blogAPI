@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './messageBoard.css';
-import profileImg from '/assets/corgi/profile/white-cat-icon.png'
 import { CloseIcon, SendMsgIcon } from '../Icons';
 import Button from '../Button';
 import { createComment, fetchCommentsByPostId } from '../../../api/posts';
 import { useAuth } from '../../context/useAuthContext';
+import LoadingSpinner from '../LoadingAnimation/LoadingSpinner';
 
-function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
+function MessageBoard({ isChatOpen, onToggleChat, postId }) {
   const [message, setMessage] = useState('');
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,6 +14,7 @@ function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
 
   const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
 
+  // Load comments for current post
   useEffect(() => {
     async function loadComments() {
       try {
@@ -29,10 +30,8 @@ function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
       loadComments();
     }
   }, [postId]);
- 
-  const handleChange = (e) => {
-    setMessage(e.target.value);
-  };
+
+  const handleChange = (e) => setMessage(e.target.value);
 
   const handleSend = useCallback(async () => {
     if (!isAuthenticated) {
@@ -61,13 +60,20 @@ function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
     }
   }, [isAuthenticated, message, postId, setIsAuthenticated, setUser]);
 
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  }, [handleSend]);
+
+  // Always scroll to bottom when comments change
   useEffect(() => {
     const container = document.querySelector('.message-board-container');
     if (container) container.scrollTop = container.scrollHeight;
   }, [comments]);
 
-  // Format date for display
-  const formatDate = (dateString) => {
+  const formatDate = useCallback((dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -75,12 +81,10 @@ function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
       hour: '2-digit',
       minute: '2-digit'
     });
-  };
+  }, []);
 
   return (
-    <div
-      className={`message-board-container ${isChatOpen ? 'slide-in-chat' : 'slide-out-chat'}`}
-    >
+    <div className={`message-board-container ${isChatOpen ? 'slide-in-chat' : 'slide-out-chat'}`}>
       <Button
         onClick={onToggleChat}
         ariaLabel="Close chat"
@@ -88,56 +92,51 @@ function MessageBoard({ isChatOpen, onToggleChat, postId  }) {
         text={<CloseIcon className={'close-icon'} />}
       />
 
-      <div className='message-scroll-area'>
+      <div className="message-scroll-area">
         {loading ? (
-          <div className='no-comments'>Loading...</div>
+          <div className="no-comments"><LoadingSpinner /></div>
         ) : comments.length === 0 ? (
-          <div className='no-comments'>
-            <p>No comments yet.</p> 
+          <div className="no-comments">
+            <p>No comments yet.</p>
             <p>Be the first to post a comment.</p>
           </div>
         ) : (
           comments.map((comment) => (
             <div key={comment.id} className="message-wrap">
-              <img src={profileImg} alt="user icon" />
+              <img src={comment.user?.avatar} alt="user icon" className="no-select" />
               <div>
                 <div className="upper-part">
                   <p className="username">{comment.user?.username || 'Anonymous'}</p>
                   <p className="message">{comment.content}</p>
                 </div>
                 <div className="lower-part">
-                  <p className="date">{formatDate(comment.createdAt)}</p>
+                  <p className="date no-select">{formatDate(comment.createdAt)}</p>
                 </div>
               </div>
             </div>
           ))
         )}
       </div>
-    
+
       <div className="message-input">
         {loginMessage && (
-          <div className={`login-chat-message ${loginMessage ? 'show' : ''}`}>
+          <div className={`login-chat-message no-select ${loginMessage ? 'show' : ''}`}>
             {loginMessage}
           </div>
         )}
-          
+
         <textarea
           value={message}
           onChange={handleChange}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();    
-              handleSend();         
-            }
-          }}
-          placeholder={isAuthenticated ? "Message..." : "Please log in to comment"}
+          onKeyDown={handleKeyDown}
+          placeholder={isAuthenticated ? 'Message...' : 'Please log in to comment'}
           rows={1}
         />
 
         <Button
           onClick={handleSend}
           ariaLabel="Send message"
-          text={<SendMsgIcon className={'send-msg-icon'} />}
+          text={<SendMsgIcon className={'send-msg-icon no-select'} />}
         />
       </div>
     </div>

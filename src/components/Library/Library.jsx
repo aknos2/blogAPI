@@ -8,6 +8,7 @@ import { getLatestDates, currentYear, currentMonth } from '../../utils/getLatest
 import SelectedFilters from './SelectedFilters';
 import { fetchPosts } from '../../../api/posts';
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../LoadingAnimation/LoadingSpinner';
 
 function Library() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Library() {
   // Use current date as fallback if no articles
   const displayLatestYear = latestYear || currentYear;
   const displayLatestMonth = latestMonth || currentMonth;
-  
+
   // Process articles to extract all unique tag names
   const allTags = [...new Set(articles.flatMap(article => 
     article.tags?.map(tag => tag.name) || []
@@ -34,7 +35,7 @@ function Library() {
     async function loadPosts() {
       try {
         const res = await fetchPosts();
-        console.log('Library posts response:', res.data); // Debug log
+        console.log('Library posts response:', res.data); 
         setArticles(res.data);
       } catch (err) {
         console.error('Failed to fetch posts:', err);
@@ -43,10 +44,10 @@ function Library() {
       }
     }
     loadPosts();
-  }, []);
+  }, []); 
 
   // Show loading state
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className='library-loading'><LoadingSpinner /></div>;
   
   // Show no posts message if empty
   if (!articles || articles.length === 0) {
@@ -54,14 +55,11 @@ function Library() {
   }
 
   const filteredArticles = articles.filter(article => {
-    // Extract year and month from createdAt
     const articleDate = new Date(article.createdAt);
     const articleYear = articleDate.getFullYear();
     const articleMonth = articleDate.toLocaleString('default', { month: 'long' });
-    
-    // Get tag names for comparison
     const articleTagNames = article.tags?.map(tag => tag.name) || [];
-    
+
     const matchesYear = !selectedYear || articleYear === selectedYear;
     const matchesMonth = !selectedMonth || articleMonth.toLowerCase() === selectedMonth.toLowerCase();
     const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => articleTagNames.includes(tag));
@@ -167,9 +165,11 @@ function Library() {
                       <CommentsIcon/> 
                       <p>{article.comments?.length || 0}</p>
                     </div>
-                  </div>  
+                  </div>
+
+                { index === 0  && (
                     <SelectedFilters
-                      className="month-title"
+                      className="selected-filters-container"
                       selectedYear={selectedYear}
                       setSelectedYear={setSelectedYear}
                       selectedMonth={selectedMonth}
@@ -179,11 +179,14 @@ function Library() {
                       searchQuery={searchQuery}
                       setSearchQuery={setSearchQuery}
                     />
+                )}
                 </figcaption>
               </figure>
             ))
           ) : (
-             <div>No articles found</div>
+            <div className="no-articles">
+              <p>No articles found with the current filters.</p>
+            </div>
           )}
         </div>
       </div>
