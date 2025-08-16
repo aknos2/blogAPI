@@ -132,6 +132,7 @@
   --signup-login-button-hover-text-color: azure;
   --signup-message-color: rgb(147, 146, 144);
   --theme-icon: #f0f0f0;;
+  --brightness-dark-mode: brightness(45%);
 }
 
 [data-theme="West"] {

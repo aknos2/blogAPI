@@ -132,7 +132,7 @@ function SideMenu({isOpen, onToggleLogin, onMenuToggle}) {
               <>
                 <Button onClick={onToggleLogin} className='login-btn' text="Login"/>
                 <Link to="/signup">
-                  <Button className='login-btn' text="Sign up"/>
+                  <Button className='login-btn' text="Sign up" onClick={onMenuToggle}/>
                 </Link>
               </>
             )}

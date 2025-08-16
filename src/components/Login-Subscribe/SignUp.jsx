@@ -109,7 +109,7 @@ function SignUp() {
 
           <div className="signup-container-content">
             <div className='create-account-avatar no-select'>
-              <h1>Let's avatar choose</h1>
+              <h1>Choose avatar</h1>
               <div className='avatar-wrap'>
                 {avatars.map((avatar)=> (
                   <Button key={avatar.key}
@@ -135,7 +135,7 @@ function SignUp() {
               />
 
               <label htmlFor="password">Password:</label>
-              <span className='password-instruction'>(At least one number and one uppercase letter)</span>
+              <span className='password-instruction'>(At least one number)</span>
 
               <div className="password-input-wrapper">
                 <input
@@ -153,7 +153,7 @@ function SignUp() {
                   className="toggle-password-btn"
                   aria-label="Toggle password visibility"
                 >
-                  {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                  {showPassword ? <EyeOffIcon className="eye-icon"/> : <EyeIcon className="eye-icon"/>}
                 </button>
               </div>
 
@@ -174,7 +174,7 @@ function SignUp() {
                   className="toggle-password-btn"
                   aria-label="Toggle confirm password visibility"
                 >
-                  {showConfirm ? <EyeOffIcon /> : <EyeIcon />}
+                  {showConfirm ? <EyeOffIcon className="eye-icon"/> : <EyeIcon className="eye-icon"/>}
                 </button>
               </div>
 

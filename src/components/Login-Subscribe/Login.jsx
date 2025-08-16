@@ -3,7 +3,7 @@ import Button from '../Button';
 import { CloseIcon } from '../Icons';
 import './login-signup.css';
 import { loginAccount, logoutAccount } from '../../../api/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginScreen({ onToggleLogin }) {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -139,7 +139,7 @@ function LoginScreen({ onToggleLogin }) {
             </form>
 
             <p className='sign-up-message'>
-              Don't have an account? <a href="/signup">Sign up here</a>
+              Don't have an account? <Link to="/signup" onClick={onToggleLogin}><span>Sign up here</span></Link>
             </p>
 
             <Button 
