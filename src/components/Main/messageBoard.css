@@ -22,6 +22,7 @@
   right: 0;
   background-color: var(--messageBoard-close-btn-bg-color);
   border: none;
+  border-radius: 0 0 0 7px;
 }
 .message-board-container .close-chat-btn:hover {
   cursor: pointer;
@@ -165,9 +166,20 @@
   color: var(--messageBoard-message);
 }
 
+.message-scroll-area::-webkit-scrollbar {
+  width: 3px;
+}
+.message-scroll-area::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-color);
+  border-radius: 10px;
+}
+.message-scroll-area:-webkit-scrollbar-track {
+  background: transparent;
+}
+
 @media (max-width: 768px) {
   .message-board-container {
-    max-width: 25rem;
+    max-width: 27rem;
     position: absolute;
   }
   .slide-in-chat {
@@ -182,9 +194,76 @@
   }
 }
 
-@media(min-width: 1290px) {
+@media (min-width: 768px) {
+  .message-board-container {
+    max-width: 27rem;
+    position: absolute;
+    right: 0;
+    max-height: 75vh;
+  }
+  .slide-out-chat {
+    transform: translateX(100%);
+  }
+  .slide-in-chat {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 912px) {
+  .message-board-container {
+    max-width: 27rem;
+    position: absolute;
+    right: 0;
+    max-height: 75vh;
+  }
+  .slide-out-chat {
+    transform: translateX(110%);
+  }
+  .slide-in-chat {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@media(min-width: 1024px) {
   .message-board-container {
     max-width: 24rem;
+    position: absolute;
+    right: 0;
+    max-height: 55vh;
+  }
+  .slide-out-chat {
+    transform: translateX(100%);
+  }
+  .slide-in-chat {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@media(min-width: 1024px) and (max-height: 640px) {
+  .message-board-container {
+    max-width: 20rem;
+    width: 30vw;
+    position: absolute;
+    right: 0;
+    min-height: 65vh;
+  }
+  .slide-out-chat {
+    transform: translateX(120%);
+  }
+  .slide-in-chat {
+    transform: translateX(-5%);
+    opacity: 1;
+  }
+}
+
+
+@media(min-width: 1280px) {
+  .message-board-container {
+    max-width: 24rem;
+    min-height: 70vh;
   }
   .slide-out-chat {
     transform: translateX(100%);

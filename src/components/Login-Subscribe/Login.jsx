@@ -104,15 +104,14 @@ function LoginScreen({ onToggleLogin }) {
                 text={logoutLoading ? "Logging out..." : "Logout"}
                 disabled={logoutLoading}
                 className="logout-btn"
-              />
+                />
               <Link to="/">Home</Link>
             </div>
           </div>
         ) : (
           <>
+          {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
-              {error && <div className="error-message">{error}</div>}
-
               <label htmlFor="username">Username:</label>
               <input
                 type="text"

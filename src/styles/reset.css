@@ -27,6 +27,7 @@ body {
   font-size: 1.6rem; /* equals 16px */ 
   height: 100vh;
   overflow: hidden;
+  width: 100%;
 }
 
 /* 6. Improve media defaults */
@@ -88,5 +89,15 @@ p, h1, h2, h3, a, ul {
 @media (max-width: 768px) {
   body {
     font-size: 1rem;
+    height: 100svh;
+  }
+}
+
+@media(min-width: 1024px) and (max-height: 640px) {
+  html {
+    overflow: hidden;
+  }
+  body {
+    overflow: hidden;
   }
 }

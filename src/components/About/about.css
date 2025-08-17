@@ -176,6 +176,38 @@
   }
 }
 
+@media(min-width: 1024px) and (max-height: 600px){
+  .about-container {
+    display: grid;
+    grid-template-rows: 4rem 1fr;
+    gap: 1rem;
+    padding: 2rem 4rem;
+    border: 1px solid black;
+    width: fit-content;
+    margin: 0 auto;
+    height: 75vh !important;
+  }
+  .about-container h1 {
+    font-size: 2rem;
+  }
+
+
+  .profile-img img{
+    max-width: 25rem;
+    max-height: 18rem;
+  }
+
+  .profile-content .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .description .pt1 {
+    font-size: 1.5rem;
+  }
+}
+
 @media(min-width: 1290px) {
   .about-container {
     padding: 2rem 6rem;
