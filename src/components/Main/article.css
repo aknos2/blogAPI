@@ -264,6 +264,12 @@
   }
 }
 
+@media(min-width: 176px) {
+   .article-container {
+    overflow: auto;
+  }
+}
+
 @media(min-width: 540px) {
   .article-container {
     width: 90vw;
@@ -356,7 +362,7 @@
   }
 }
 
-@media(min-width: 1024px) and (max-height: 640px) {
+@media(min-width: 1024px) and (max-height: 768px) {
   .article-container {
     width: 70vw; 
     max-height: 75vh !important;
@@ -448,5 +454,214 @@
 
   .editor-wrapper {
     width: 55rem;
+  }
+}
+
+@media(min-width: 1366px) {
+  .content-grid-horizontalImage {
+    grid-template-rows: 18rem 5rem 1rem; /* image:content */
+    gap: 2rem;
+  }
+}
+
+@media(min-width: 1920px) {
+  .content-grid-titlePage {
+    gap: 2rem;
+    padding: 0;
+    text-align: left;
+    font-size: 1.5rem;
+    min-height: 30vh;
+  }
+  .content-grid-horizontalImage {
+    grid-template-rows: 30rem 5rem 1rem; /* image:content */
+    gap: 2rem;
+  }
+}
+
+/* Large phones in landscape */
+@media (max-width: 915px) and (orientation: landscape) { 
+  .article-container {
+    width: 70vw; 
+    max-height: 79vh !important;
+    margin: 0;
+    margin-top: 1rem;
+  }
+  .content-grid-titlePage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0;
+    text-align: left;
+    font-size: 0.8rem;
+    min-height: 10vh;
+  }
+  .content-grid-horizontalImage {
+    grid-template-rows: 8rem 3rem 1rem; 
+    gap: 2rem;
+  }
+  .title h2 {
+    font-size: 1.3rem ;
+  }
+  .sub-title {
+    font-size: 0.8rem ;
+  }
+  .tags a {
+    font-size: 0.6rem;
+  }
+  .page-content {
+    font-size: 1.1rem;
+  }
+  .content-bottom {
+    margin-top: auto; /* pushes it to bottom */
+    font-size: 0.9rem;
+  }
+  .heart-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  } 
+}
+
+/* Tablets in landscape */
+@media (max-width: 1280px) and (orientation: landscape) { 
+  .article-container {
+    width: 70vw; 
+    max-height: 79vh !important;
+    margin: 0;
+    margin-top: 1rem;
+  }
+  .content-grid-titlePage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0;
+    text-align: left;
+    font-size: 1.2rem;
+    min-height: 10vh;
+  }
+  .content-grid-horizontalImage {
+    grid-template-rows: 14rem 3rem 1rem; 
+    gap: 2rem;
+  }
+  .title h2 {
+    font-size: 1.3rem ;
+  }
+  .sub-title {
+    font-size: 1rem ;
+  }
+  .tags a {
+    font-size: 0.8rem;
+  }
+  .page-content {
+    font-size: 1.2rem;
+  }
+  .content-bottom {
+    margin-top: auto; /* pushes it to bottom */
+    font-size: 1rem;
+  }
+  .heart-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  } 
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .content-grid-titlePage {
+    font-size: 1.5rem;
+  }
+  .title h2 {
+    font-size: 2rem ;
+  }
+  .sub-title {
+    font-size: 1.3rem ;
+  }
+  .tags a {
+    font-size: 1rem;
+  }
+  .page-content {
+    font-size: 1.5rem;
+  }
+  .content-bottom {
+    margin-top: auto; /* pushes it to bottom */
+    font-size: 1.2rem;
+  }
+  .heart-icon {
+    width: 30px;
+    height: 30px;
+  } 
+  .like-section span{
+    margin-top: 2px;
+  }
+   .content-grid-horizontalImage {
+    grid-template-rows: 20rem 3rem 1rem; 
+    gap: 2rem;
+  }
+}
+
+/* Small landscape phones */
+@media (max-width: 740px) and (orientation: landscape) { 
+  .article-container {
+    width: 70vw; 
+    max-height: 80svh !important;
+    margin: 0;
+    margin-top: 1rem;
+  }
+  .content-grid-titlePage {
+    gap: 1rem;
+    padding: 0;
+    text-align: left;
+    font-size: 0.8rem;
+    min-height: 10vh;
+  }
+  .content-grid-horizontalImage {
+    grid-template-rows: 7rem 2rem 1rem; 
+    gap: 1rem;
+  }
+  .title h2 {
+    font-size: 1rem ;
+  }
+  .sub-title {
+    font-size: 0.6rem ;
+  }
+  .tags a {
+    font-size: 0.5rem;
+  }
+  .page-content {
+    font-size: 1rem;
+  }
+  .content-bottom {
+    margin-top: auto; /* pushes it to bottom */
+    font-size: 0.8rem;
+  }
+  .heart-icon {
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: 1px;
+  } 
+  .like-section span{
+    margin-top: 1px;
+  }
+  .chat-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+@media (max-width: 667px) and (orientation: landscape) {
+   .article-container {
+    width: 70vw; 
+    max-height: 80svh !important;
+    margin: 0;
+    margin-top: 1rem;
+    overflow: hidden;
+    padding: 1.5rem;
+  }
+  .content-grid-titlePage {
+    gap: 1rem;
+    padding: 0;
+    text-align: left;
+    font-size: 0.7rem;
+    min-height: 10vh;
   }
 }

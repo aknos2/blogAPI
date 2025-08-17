@@ -176,6 +176,12 @@
   }
 }
 
+@media(min-width: 320px) {
+  .about-container {
+    overflow: auto !important;
+  }
+}
+
 @media(min-width: 1024px) and (max-height: 600px){
   .about-container {
     display: grid;
@@ -221,5 +227,156 @@
   }
   .description .pt1 {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 915px) and (orientation: landscape) { 
+  .about-container {
+    grid-template-rows: 4rem 1fr;
+    gap: 1rem;
+    padding: 1rem 3rem;
+    width: fit-content;
+    margin: 0 auto;
+    border-top: none;
+    height: 80vh;
+  }
+  .about-container h1 {
+    font-size: 2rem;
+  }
+
+  .profile-img img{
+    width: 100%;
+    height: 100%;
+    max-width: 10rem;
+  }
+
+  .profile-content {
+    gap: 3rem;
+    padding: 0;
+  }
+
+  .profile-content .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .description .pt1 {
+    font-size: 1.2rem;
+  }
+  .description .pt2 {
+    text-align: center;
+     font-size: 1.2rem;
+  }
+
+  .credits-container {
+    gap: 1rem;
+    margin-top: 1rem;
+    border: 1px solid var(--container-border);
+    width: fit-content;
+    margin: 0 auto;
+    padding: 1rem;
+    border-top: none;
+    background-color: var(--photo-container-color);
+    overflow: auto;
+    height: 80vh;
+    font-size: 1rem;
+  }
+  .credits-container h1{
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1280px) and (orientation: landscape) {
+  .about-container {
+    grid-template-rows: 4rem 1fr;
+    gap: 1rem;
+    padding: 1rem 3rem;
+    width: fit-content;
+    margin: 0 auto;
+    border-top: none;
+    height: 80vh;
+  }
+  .about-container h1 {
+    font-size: 2rem;
+  }
+
+  .profile-img img{
+    width: 100%;
+    height: 100%;
+    max-width: 10rem;
+  }
+
+  .profile-content {
+    gap: 3rem;
+    padding: 0;
+  }
+
+  .profile-content .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .description .pt1 {
+    font-size: 1.2rem;
+  }
+  .description .pt2 {
+    text-align: center;
+     font-size: 1.2rem;
+  }
+
+  .credits-container {
+    gap: 1rem;
+    margin-top: 1rem;
+    border: 1px solid var(--container-border);
+    width: fit-content;
+    margin: 0 auto;
+    padding: 1rem;
+    border-top: none;
+    background-color: var(--photo-container-color);
+    overflow: auto;
+    height: 80vh;
+    font-size: 1rem;
+  }
+  .credits-container h1{
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 740px) and (orientation: landscape) { 
+   .about-container {
+    grid-template-rows: 2.5rem 1fr;
+    height: 80vh;
+  }
+  .about-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .profile-img img{
+    width: 100%;
+    height: 100%;
+    max-width: 10rem;
+  }
+
+  .profile-content {
+    gap: 3rem;
+    padding: 0;
+  }
+
+  .description .pt1 {
+    font-size: 1rem;
+  }
+  .description .pt2 {
+    font-size: 1rem;
+  }
+
+  .credits-container {
+    gap: 1rem;
+    height: 80vh;
+    font-size: 0.8rem;
+  }
+  .credits-container h1{
+    font-size: 1.5rem;
   }
 }

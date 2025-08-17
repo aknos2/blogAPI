@@ -223,3 +223,151 @@
     font-size: 1.2rem;
   }
 }
+
+@media (max-width: 915px) and (orientation: landscape) {
+  .search-month ul {
+    font-size: 1rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  .search input {
+    width: 100%;
+    font-size: 0.6rem;
+  }
+  .search-menu {
+    padding: 0.5rem;
+    padding-top: 1rem;
+  }
+  .search-nav-links {
+    gap: 1rem;
+  }
+  .search-menu {
+    flex: 0.3;  
+    padding-top: 1rem;
+  }
+  .search {
+    padding: 0.2rem;
+    gap: 0.5rem;
+  }
+  .search label {
+    font-size: 1rem;
+  }
+  .search input {
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+  }
+  .new-posts-btn, .search-nav-links p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+  .search-date {
+    gap: 0.5rem;
+    font-size: 1rem;
+  }
+  .search-month {
+    gap: 0.5rem;
+    padding: 0.3rem;
+  }
+  .search-month li {
+    padding: 0rem;
+  }
+  .category-tags {
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+    padding: 0;
+  }
+  .category-tags {
+    gap: 0.2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1280px) and (orientation: landscape) {
+   .search-month ul {
+    font-size: 1rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  .search input {
+    width: 100%;
+    font-size: 0.6rem;
+  }
+  .search-menu {
+    padding: 0.5rem;
+    padding-top: 1rem;
+  }
+  .search-nav-links {
+    gap: 1rem;
+  }
+  .search-menu {
+    flex: 0.3;  
+    padding-top: 1rem;
+  }
+  .search {
+    padding: 0.2rem;
+    gap: 0.5rem;
+  }
+  .search label {
+    font-size: 1rem;
+  }
+  .search input {
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+  }
+  .new-posts-btn, .search-nav-links p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+  .search-date {
+    gap: 0.5rem;
+    font-size: 1rem;
+  }
+  .search-month {
+    gap: 0.5rem;
+    padding: 0.3rem;
+  }
+  .search-month li {
+    padding: 0rem;
+  }
+  .category-tags {
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+    padding: 0;
+  }
+  .category-tags {
+    gap: 0.2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 667px) and (orientation: landscape) {
+  .search-month ul {
+    font-size: 0.8rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  .search input {
+    width: 100%;
+    font-size: 0.6srem;
+  }
+  .search-menu {
+    flex: 0.3;  
+    padding-top: 0.5rem;
+  }
+  .search label {
+    font-size: 0.8rem;
+  }
+  .search input {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  .new-posts-btn, .search-nav-links p {
+    font-size: 0.8rem;
+  }
+  .search-date {
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .category-tags {
+    gap: 0.2rem;
+    font-size: 0.8rem;
+  }
+}

@@ -444,6 +444,27 @@
   }
 }
 
+@media(min-width: 176px) {
+  .login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--login-container-border);
+    border-radius: 99px;
+    width: 15rem;
+    height: 13rem;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    background-color: var(--login-container);
+    color: var(--text-color);
+  }
+  .login-container form, 
+  .signup-container form {
+    overflow: auto;
+  }
+}
+
 @media(min-width: 768px) {
   .signup-container {
     padding: 2rem;
@@ -554,5 +575,240 @@
 @media(min-width: 1280px) {
   .signup-container {
     width: 60vw;
+  }
+}
+
+@media (max-width: 915px) and (orientation: landscape) { 
+  .signup-container {
+    width: 80vw;
+    height: 80vh;
+  }
+  .signup-container h1 {
+    text-align: center;
+    font-size: 1.4rem; 
+  }
+  .avatar-btn {
+    width: 80px;
+    height: 80px;
+  }
+  .avatar-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    overflow-y: auto;
+    padding-right: 0.5rem; /* prevent scrollbar overlap */
+    max-height: 21rem;
+  }
+  .create-account-avatar h1 {
+    font-size: 1.3rem;
+  }
+  .create-account-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border-width: 60%;
+  }
+  .create-account-info h1 {
+    padding-bottom: 0.5rem;
+  }
+  .login-container form, 
+  .signup-container form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  .login-container input,
+  .signup-container input {
+    font-size: 1rem;
+  }
+  .signup-container button[type="submit"]{
+    margin-top: 2rem;
+    padding: 0.3rem;
+  }
+  .password-input-wrapper input {
+    padding-right: 1.8rem; /* space for the eye icon */
+  }
+  .toggle-password-btn {
+    right: 0.1rem;
+    transform: translate(0, -35%);
+  }
+  .eye-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .login-container-background {
+    width: 20rem;
+    height: 22rem;
+  }
+  .login-container {
+    width: 16rem;
+    height: 17rem;
+    padding: 1rem 3rem;
+    margin: 0 auto;
+  }
+  .login-container form {
+    font-size: 1rem;
+  }
+  .close-login-btn svg{
+    width: 25px;
+    height: 25px;
+  }
+  .close-login-btn {
+    transform: translate(0.5rem, -2rem);
+  }
+  .success-login-message {
+    top: 0;
+    font-size: 0.8rem;
+  }
+  .signup-container .error-message, .signup-container .error-messagess  {
+    margin-bottom: 0px;
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left; 
+    max-width: 80%;
+  }
+
+  .login-container .error-message, .login-container .error-messages {
+    transform: translate(-50%, -2rem);
+    text-align: center;
+    font-size: 1rem;
+    background-color: aliceblue;
+  }
+}
+
+@media (max-width: 1280px) and (orientation: landscape) {
+  .signup-container {
+    width: 80vw;
+    height: 80vh;
+  }
+  .signup-container h1 {
+    text-align: center;
+    font-size: 1.5rem; 
+  }
+  .avatar-btn {
+    width: 85px;
+    height: 85px;
+  }
+  .avatar-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    overflow-y: auto;
+    padding-right: 0.5rem; /* prevent scrollbar overlap */
+    max-height: 22rem;
+  }
+  .create-account-avatar h1 {
+    font-size: 1.3rem;
+  }
+  .create-account-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border-width: 60%;
+  }
+  .create-account-info h1 {
+    padding-bottom: 0.5rem;
+  }
+  .login-container form, 
+  .signup-container form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  .login-container input,
+  .signup-container input {
+    font-size: 1rem;
+  }
+  .signup-container button[type="submit"]{
+    margin-top: 2rem;
+    padding: 0.3rem;
+  }
+  .password-input-wrapper input {
+    padding-right: 1.8rem; /* space for the eye icon */
+  }
+  .toggle-password-btn {
+    right: 0.1rem;
+    transform: translate(0, -35%);
+  }
+  .eye-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .login-container-background {
+    width: 20rem;
+    height: 22rem;
+  }
+  .login-container {
+    width: 16rem;
+    height: 17rem;
+    padding: 1rem 3rem;
+    margin: 0 auto;
+  }
+  .login-container form {
+    font-size: 1rem;
+  }
+  .close-login-btn svg{
+    width: 25px;
+    height: 25px;
+  }
+  .close-login-btn {
+    transform: translate(0.5rem, -2rem);
+  }
+  .success-login-message {
+    top: 0;
+    font-size: 0.8rem;
+  }
+  .signup-container .error-message, .signup-container .error-messagess  {
+    margin-bottom: 0px;
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left; 
+    max-width: 80%;
+  }
+
+  .login-container .error-message, .login-container .error-messages {
+    transform: translate(-50%, -2rem);
+    text-align: center;
+    font-size: 1rem;
+    background-color: aliceblue;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .signup-container h1 {
+    text-align: center;
+    font-size: 2rem; 
+  }
+  .avatar-btn {
+    width: 100px;
+    height: 100px;
+  }
+  .avatar-wrap {
+    max-height: 30rem;
+  }
+  .create-account-avatar h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1366px) and (orientation: landscape) {
+  .login-container-background {
+    width: 27rem;
+    height: 23rem;
+  }
+  .login-container {
+    width: 19rem;
+    height: 19rem;
+  }
+  .login-container form {
+    font-size: 1.2rem;
   }
 }

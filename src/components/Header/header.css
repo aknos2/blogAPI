@@ -134,6 +134,55 @@ nav ul {
   }
 }
 
+@media(max-width: 320px) {
+  .corgi-header-img {
+    width: clamp(50px, 5vw, 20px);
+    height: auto;
+    object-fit: cover;
+    margin-bottom: -9.5rem; /* Pull it into the nav */
+    z-index: 2;
+  }
+
+   .header-title{
+    font-size: clamp(1rem, 2vw, 2.5rem);
+    gap: 3rem;
+  }
+    .header-title h1{
+    font-size: 1rem
+  }
+
+  .header-container nav {
+    width: 100%;
+    border-bottom: 2px solid var(--nav-border);
+    font-size: 1rem;
+  }
+  nav ul {
+    font-size: 0.8rem;
+    padding: 0 1rem;
+    padding-top: 1.25rem;
+  }
+  .right-side-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  .left-side-nav {
+    display: flex;
+    gap: 0;
+  }
+
+  .theme-btn svg{
+    width: 10px;
+    height: 10px;
+    margin-top: 3.5px;
+  }
+  .theme-text {
+    display: none;
+  }
+  .theme-btn-content {
+    gap: 0; 
+  }
+}
+
 @media (min-width: 768px) {
   .corgi-header-img {
     width: clamp(140px, 20vw, 250px);
@@ -257,5 +306,180 @@ nav ul {
   .theme-text {
     display: block;
   }
+
+  .corgi-header-img {
+    width: clamp(100px, 17vw, 240px);
+    margin-bottom: calc(-7rem - 2px) /* Pull it into the nav */
+  }
 }
 
+/* Small landscape phones */
+@media (max-width: 667px) and (orientation: landscape) {  }
+
+/* Tablets in landscape */
+@media (max-width: 1280px) and (orientation: landscape) { 
+   .header-container nav {
+    width: 100%;
+    border-bottom: 2px solid var(--nav-border);
+    font-size: 1rem;
+  }
+
+  .corgi-header-img {
+    width: clamp(100px, 15vw, 200px);
+    height: auto;
+    object-fit: cover;
+    margin-bottom: -5.3rem; /* Pull it into the nav */
+    z-index: 2;
+  }
+  nav ul {
+    padding: 0 1rem;
+    padding-top: 1.25rem;
+  }
+  .right-side-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  .left-side-nav {
+    display: flex;
+    gap: 0;
+  }
+
+  .theme-btn svg{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+   .header-container nav {
+    font-size: 1.3rem;
+  }
+  .corgi-header-img {
+    width: clamp(100px, 15vw, 180px);
+    height: auto;
+    margin-bottom: -6rem; /* Pull it into the nav */
+  }
+  nav ul {
+    padding: 0 1rem;
+    padding-top: 1.25rem;
+  }
+
+  .theme-btn svg{
+    width: 25px;
+    height: 25px;
+     margin-top: -2px;
+  }
+  .theme-text {
+    margin-top: -2px;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) and (height: 768px) {
+  .corgi-header-img {
+    margin-bottom: -5.9rem;
+  }
+  
+  .theme-text {
+    display: none;
+  }
+
+  .theme-btn svg{
+    width: 25px;
+    height: 25px;
+    margin-top: 0px;
+  }
+}
+
+/* Large phones in landscape */
+@media (max-width: 915px) and (orientation: landscape) {
+  .header-container nav {
+    width: 100%;
+    border-bottom: 2px solid var(--nav-border);
+    font-size: 1rem;
+  }
+
+  .corgi-header-img {
+    width: clamp(100px, 15vw, 200px);
+    height: auto;
+    object-fit: cover;
+    margin-bottom: -4.85rem; /* Pull it into the nav */
+    z-index: 2;
+  }
+  nav ul {
+    padding: 0 1rem;
+    padding-top: 1.25rem;
+  }
+  .right-side-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  .left-side-nav {
+    display: flex;
+    gap: 0;
+  }
+
+  .theme-btn svg{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+   .header-container nav {
+    font-size: 1.3rem;
+  }
+  .corgi-header-img {
+    width: clamp(100px, 15vw, 180px);
+    height: auto;
+    margin-bottom: -7rem; /* Pull it into the nav */
+  }
+  nav ul {
+    padding: 0 1rem;
+    padding-top: 1.95rem;
+  }
+
+  .theme-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -0.5rem;
+  }
+
+  .theme-btn svg{
+    width: 25px;
+    height: 25px;
+  }
+  .theme-text {
+    font-size: 1.3rem;
+  }
+
+
+  .header-title {
+    display: flex;
+    justify-content: center;
+    gap: 10srem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    position: absolute;
+    z-index: 1;
+  }
+
+  .header-title h1 {
+    font-size: 5.2rem;
+  }
+}
+
+@media (max-width: 740px) and (orientation: landscape) { 
+    .corgi-header-img {
+    width: clamp(100px, 15vw, 180px);
+    height: auto;
+    margin-bottom: -4.7rem; /* Pull it into the nav */
+  }
+}
+
+ @media (max-width: 667px) and (orientation: landscape) {
+    .corgi-header-img {
+    width: clamp(100px, 15vw, 180px);
+    height: auto;
+    margin-bottom: -4.5rem !important; /* Pull it into the nav */
+  }
+ }

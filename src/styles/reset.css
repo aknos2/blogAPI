@@ -92,12 +92,3 @@ p, h1, h2, h3, a, ul {
     height: 100svh;
   }
 }
-
-@media(min-width: 1024px) and (max-height: 640px) {
-  html {
-    overflow: hidden;
-  }
-  body {
-    overflow: hidden;
-  }
-}

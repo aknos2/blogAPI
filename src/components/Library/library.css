@@ -229,3 +229,37 @@ figcaption h3 {
     flex: 0.3;
   }
 }
+
+@media (max-width: 915px) and (orientation: landscape) {
+  .library-container {
+    margin: 0 auto;
+    border: 1px solid var(--container-border);
+    border-top: none;
+    max-width: 80vw;
+    height: 80vh;
+    display: flex;
+    background: linear-gradient(
+      135deg,
+      var(--container-color) 0%,
+      var(--container-gradient) 100%
+    );
+  }
+
+}
+
+
+@media (max-width: 1280px) and (orientation: landscape) {
+  .library-container {
+    margin: 0 auto;
+    border-top: none;
+    max-width: 80vw;
+    height: 80vh;
+    background: linear-gradient(
+      135deg,
+      var(--container-color) 0%,
+      var(--container-gradient) 100%
+    );
+  }
+}
+
+
