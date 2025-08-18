@@ -44,33 +44,37 @@ function Header({ onMenuToggle, menuBtnRef}) {
       </div>
 
       <nav>
-        <ul>
-          <div className="left-side-nav">
-            <li>
-              <button 
-                onClick={onMenuToggle} 
-                className='menu-toggle-btn nav-links'
-                ref={menuBtnRef}
-                >☰ Menu
-              </button>
-            </li>
-            <li>
-           <Button
-                onClick={cycleTheme}
-                className="theme-btn nav-links"
-                text={
-                  <span className="theme-btn-content">
-                    <Pawn /> 
-                    <span className="theme-text">{themes[themeIndex]} mode</span>
-                  </span>
-                }
-              />
-            </li>
-          </div>
-          <div className="right-side-nav">
-            <Link to="library"><li className='nav-links'>Articles</li></Link>
-            <Link to="about"><li className='nav-links'>About</li></Link>
-          </div>
+        <ul className="left-side-nav">
+          <li>
+            <button 
+              onClick={onMenuToggle} 
+              className="menu-toggle-btn nav-links"
+              ref={menuBtnRef}
+            >
+              ☰ Menu
+            </button>
+          </li>
+          <li>
+            <Button
+              onClick={cycleTheme}
+              className="theme-btn nav-links"
+              text={
+                <span className="theme-btn-content">
+                  <Pawn /> 
+                  <span className="theme-text">{themes[themeIndex]} mode</span>
+                </span>
+              }
+            />
+          </li>
+        </ul>
+
+        <ul className="right-side-nav">
+          <li>
+            <Link to="library" className="nav-links">Articles</Link>
+          </li>
+          <li>
+            <Link to="about" className="nav-links">About</Link>
+          </li>
         </ul>
       </nav>
     </header>

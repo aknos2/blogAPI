@@ -92,7 +92,7 @@ function MessageBoard({ isChatOpen, onToggleChat, postId }) {
         text={<CloseIcon className={'close-icon'} />}
       />
 
-      <div className="message-scroll-area">
+      <div className="message-scroll-area" aria-label="Chat messages" tabIndex="0">
         {loading ? (
           <div className="no-comments"><LoadingSpinner /></div>
         ) : comments.length === 0 ? (
@@ -131,6 +131,7 @@ function MessageBoard({ isChatOpen, onToggleChat, postId }) {
           onKeyDown={handleKeyDown}
           placeholder={isAuthenticated ? 'Message...' : 'Please log in to comment'}
           rows={1}
+          name="chat-texting-area"
         />
 
         <Button

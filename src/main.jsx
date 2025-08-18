@@ -2,9 +2,11 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/reset.css';
 import './styles/theme.css';
-import App from './App.jsx';
+
+addPreconnectLinks();
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
+import App from './App.jsx';
 import Library from './components/Library/Library.jsx';
 import About from './components/About/About.jsx';
 import Credits from './components/About/Credits.jsx';
@@ -12,6 +14,7 @@ import MainContent from './components/Main/MainContent.jsx';
 import { AuthProvider } from './context/AuthContext.jsx'; 
 import SignUp from './components/Login-Subscribe/SignUp.jsx';
 import ErrorPage from './components/Error.jsx';
+import addPreconnectLinks from './utils/preconnect.js';
 
 const router = createBrowserRouter([
   {

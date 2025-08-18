@@ -161,6 +161,8 @@ function Article({ onToggleChat, onPostChange }) {
                       alt="Post thumbnail"
                       widths={[400, 800, 1200]}
                       sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px, (min-width: 1290px) 800px, 1200px"
+                      priority = "high" 
+                      aspectRatio="16 / 9"
                     />
                   )}
                 </div>
@@ -254,6 +256,7 @@ function Article({ onToggleChat, onPostChange }) {
           className="arrow-left-btn"
           text={<ArrowLeftIcon className='arrow-left-icon' />}
           onClick={goToPrevPage}
+          ariaLabel="Previous page"
         />
       )}
       {currentPage < totalPages - 1 && (
@@ -261,6 +264,7 @@ function Article({ onToggleChat, onPostChange }) {
           className="arrow-right-btn"
           text={<ArrowRightIcon className='arrow-right-icon' />}
           onClick={goToNextPage}
+          ariaLabel="Next page"
         />
       )}
     </div>

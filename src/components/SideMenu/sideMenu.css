@@ -748,3 +748,42 @@
     margin-bottom: -0.2rem;
   }
  }
+
+ @media(min-width: 2048px) {
+   .side-menu {
+    top: calc(18vh);
+    padding: 1rem;
+    width: 20%;
+  }
+   .profile, .profile-demo {
+    text-align: center;
+    padding: 1rem;
+    background: var(--sidemenu-profile-bg-color);
+    border-radius: 1rem 1rem 0 0;
+    width: 100%;
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subscribe-msg {
+    width: 12rem;
+    font-size: 1.5rem;
+  }
+
+  .stats {
+    gap: 0.5rem;
+    font-size: 1.3rem;
+  }
+  .categories-menu {
+    padding: 1.2rem;
+    font-size: 2rem;
+  }
+  .profile h3, .profile-demo h3 {
+    font-size: 1.5rem !important;
+  }
+  .profile img, .profile-demo img {
+    width: 7rem;
+    height: 7rem;
+  }
+ }
