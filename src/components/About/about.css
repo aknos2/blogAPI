@@ -7,7 +7,7 @@
   width: fit-content;
   margin: 0 auto;
   border-top: none;
-  background-color: var(--photo-container-color);
+  background-color: var(--article-bg-color);
 }
 .about-container h1 {
   text-align: center;
@@ -84,8 +84,9 @@
   margin: 0 auto;
   padding: 2rem;
   border-top: none;
-  background-color: var(--photo-container-color);
+  background-color: var( --article-bg-color);
   overflow: auto;
+  max-height: 85vh;
 }
 .credits-container h1{
   color: var(--text-color);
@@ -217,6 +218,7 @@
 @media(min-width: 1290px) {
   .about-container {
     padding: 2rem 6rem;
+    max-height: 80vh;
   }
   .profile-img img{
     max-width: 40rem;

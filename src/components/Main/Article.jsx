@@ -11,7 +11,7 @@ import LoadingSpinner from '../LoadingAnimation/LoadingSpinner';
 
 function Article({ onToggleChat, onPostChange }) { 
   const { articleId } = useParams();
-  const { isAuthenticated, user, authLoading } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [isSliding, setIsSliding] = useState(false);

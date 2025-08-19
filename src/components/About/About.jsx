@@ -20,7 +20,9 @@ function About() {
           <div className='pt2'>
             <p>Check out my owner here:</p>
             <div className="github-icon">
-              <GitHubIcon/>
+              <a href="https://github.com/aknos2/blogAPI">
+                <GitHubIcon/> 
+              </a>
             </div>
             <Link to="/credits">
               <p className='credits-link'>IMAGE CREDITS</p>
