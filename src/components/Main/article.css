@@ -492,6 +492,7 @@
     max-height: 79vh !important;
     margin: 0;
     margin-top: 1rem;
+    overflow-y: auto;
   }
   .content-grid-titlePage {
     display: grid;
@@ -613,6 +614,7 @@
     max-height: 80svh !important;
     margin: 0;
     margin-top: 1rem;
+    overflow-y: auto;
   }
   .content-grid-titlePage {
     gap: 1rem;
