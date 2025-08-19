@@ -236,7 +236,7 @@
   .article-container {
     padding: 1rem;
     width: auto;
-    max-height: 77svh !important;
+    max-height: 79svh !important;
     overflow-y: auto;
     /* Ensure proper scrolling on iOS */
     -webkit-overflow-scrolling: touch;
