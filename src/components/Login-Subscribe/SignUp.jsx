@@ -5,7 +5,7 @@ import { EyeIcon, EyeOffIcon } from '../Icons';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
 
-const CLOUDINARY_BASE_URL = `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload/`;
+const CLOUDINARY_BASE_URL = `https://res.cloudinary.com/dqdwmrgma/image/upload/`;
 
 export const catAvatar = "https://res.cloudinary.com/dqdwmrgma/image/upload/v1755574100/white-cat-icon_a9qjn0.webp"
 const avatarDefault = `${CLOUDINARY_BASE_URL}v1755574100/default_eyttrs.webp`;
