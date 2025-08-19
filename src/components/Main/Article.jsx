@@ -75,11 +75,29 @@ function Article({ onToggleChat, onPostChange }) {
 
   // Touch event handlers
   const handleTouchStart = (e) => {
-    if (isSliding) return; // Prevent multiple swipes during animation
-    
+  if (isSliding) return;
+  
     const touch = e.touches[0];
     touchStartX.current = touch.clientX;
     touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!touchStartX.current || !touchStartY.current || isSliding) return;
+    
+    const touch = e.touches[0];
+    const deltaX = touchStartX.current - touch.clientX;
+    const deltaY = Math.abs(touchStartY.current - touch.clientY);
+    
+    // If the user is scrolling vertically, don't prevent the default behavior
+    if (deltaY > Math.abs(deltaX)) {
+      return; // Let the browser handle vertical scrolling
+    }
+    
+    // Only prevent horizontal scrolling if it's clearly a horizontal swipe
+    if (Math.abs(deltaX) > 10) {
+      e.preventDefault(); // Prevent horizontal scrolling/bouncing
+    }
   };
 
   const handleTouchEnd = (e) => {
@@ -96,18 +114,16 @@ function Article({ onToggleChat, onPostChange }) {
     touchStartX.current = null;
     touchStartY.current = null;
 
-    // Check if this is more of a vertical scroll than horizontal swipe
-    if (deltaY > maxVerticalDistance) return;
+    // Only process horizontal swipes, ignore if too much vertical movement
+    if (deltaY > maxVerticalDistance || deltaY > Math.abs(deltaX)) return;
 
     // Check if swipe distance is sufficient
     if (Math.abs(deltaX) < minSwipeDistance) return;
 
     // Determine swipe direction and navigate
     if (deltaX > 0) {
-      // Swiped left - go to next page
       goToNextPage();
     } else {
-      // Swiped right - go to previous page
       goToPrevPage();
     }
   };
@@ -250,6 +266,7 @@ function Article({ onToggleChat, onPostChange }) {
       ref={articleRef}
       className={`article-container page-content ${isSliding ? 'sliding' : ''}`}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {renderLayout(currentPageData)}
