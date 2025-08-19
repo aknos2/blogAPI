@@ -267,7 +267,13 @@
 
 @media(min-width: 176px) {
    .article-container {
-    overflow: auto;
+    width: 90vw;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+  .content-grid-horizontalImage {
+    grid-template-rows: 18rem 3rem 1rem; /* image:content */
+    gap: 2rem;
   }
 }
 
@@ -275,6 +281,7 @@
   .article-container {
     width: 90vw;
     max-height: 88vh;
+    overflow-y: auto;
   }
   .content-grid-titlePage {
     display: flex;

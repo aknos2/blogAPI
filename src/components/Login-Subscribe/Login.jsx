@@ -111,7 +111,7 @@ function LoginScreen({ onToggleLogin }) {
         ) : (
           <>
           {error && <div className="error-message">{error}</div>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
               <label htmlFor="username">Username:</label>
               <input
                 type="text"
