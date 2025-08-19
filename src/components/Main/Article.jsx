@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Add useOutletContext
+import { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { ArrowLeftIcon, ArrowRightIcon, ChatIcon, HeartIcon } from '../Icons';
 import Button from '../Button';
 import './article.css';
@@ -21,14 +21,20 @@ function Article({ onToggleChat, onPostChange }) {
   const [isLiking, setIsLiking] = useState(false);
   const [loginMessage, setLoginMessage] = useState(false);
 
-  // Load posts - this should work regardless of authentication status
+  // Touch/swipe handling
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const articleRef = useRef(null);
+  const minSwipeDistance = 50; // Minimum distance for a swipe
+  const maxVerticalDistance = 100; // Maximum vertical movement allowed
+
+  // Load posts
   useEffect(() => {
     async function loadPosts() {
       try {
-        const res = await fetchPosts(); // backend decides what to send
+        const res = await fetchPosts();
         setPosts(res.data);
-        
-        // Initialize like counts
+
         const counts = {};
         res.data.forEach(post => {
           counts[post.id] = post.Like?.length || 0;
@@ -41,9 +47,9 @@ function Article({ onToggleChat, onPostChange }) {
       }
     }
     loadPosts();
-  }, []); // Removed auth dependencies
+  }, []);
 
-  // Separate effect to handle user's liked posts when auth state changes
+  // Update liked posts for user
   useEffect(() => {
     if (!posts.length) return;
     
@@ -52,34 +58,67 @@ function Article({ onToggleChat, onPostChange }) {
       posts.forEach(post => {
         if (post.Like) {
           const hasLiked = post.Like.some(like => like.userId === user.userId);
-          if (hasLiked) {
-            userLiked.add(post.id);
-          }
+          if (hasLiked) userLiked.add(post.id);
         }
       });
     }
     setLikedPosts(userLiked);
   }, [isAuthenticated, user, posts]);
 
-  // Select article based on ID from URL, or default to latest
   const currentArticle = posts?.find(post => post.id === articleId) || posts?.[0] || null;
 
-  // Notify parent component when current article changes
   useEffect(() => {
     if (currentArticle && currentArticle.id && onPostChange) {
       onPostChange(currentArticle.id);
     }
   }, [currentArticle, onPostChange]);
 
+  // Touch event handlers
+  const handleTouchStart = (e) => {
+    if (isSliding) return; // Prevent multiple swipes during animation
+    
+    const touch = e.touches[0];
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStartX.current || !touchStartY.current || isSliding) return;
+
+    const touch = e.changedTouches[0];
+    const touchEndX = touch.clientX;
+    const touchEndY = touch.clientY;
+    
+    const deltaX = touchStartX.current - touchEndX;
+    const deltaY = Math.abs(touchStartY.current - touchEndY);
+    
+    // Reset touch positions
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    // Check if this is more of a vertical scroll than horizontal swipe
+    if (deltaY > maxVerticalDistance) return;
+
+    // Check if swipe distance is sufficient
+    if (Math.abs(deltaX) < minSwipeDistance) return;
+
+    // Determine swipe direction and navigate
+    if (deltaX > 0) {
+      // Swiped left - go to next page
+      goToNextPage();
+    } else {
+      // Swiped right - go to previous page
+      goToPrevPage();
+    }
+  };
+
   const handleLike = async () => {
     if (!isAuthenticated) {
       setLoginMessage(true);
-      setTimeout(() => {
-        setLoginMessage(false)
-      }, 3000)
+      setTimeout(() => setLoginMessage(false), 3000);
       return;
-    }; 
-  
+    }
+
     if (!currentArticle || isLiking) return;
 
     setIsLiking(true);
@@ -88,19 +127,14 @@ function Article({ onToggleChat, onPostChange }) {
     try {
       const response = await togglePostLike(postId);
       const { liked, totalLikes } = response.data;
-      
-      // Update liked posts set
-      if (liked) {
-        setLikedPosts(prev => new Set([...prev, postId]));
-      } else {
-        setLikedPosts(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(postId);
-          return newSet;
-        });
-      }
-      
-      // Update like count with server response
+
+      setLikedPosts(prev => {
+        const newSet = new Set(prev);
+        if (liked) newSet.add(postId);
+        else newSet.delete(postId);
+        return newSet;
+      });
+
       setLikeCounts(prev => ({
         ...prev,
         [postId]: totalLikes
@@ -116,15 +150,8 @@ function Article({ onToggleChat, onPostChange }) {
   const totalPages = currentArticle?.postPage.length;
   const currentPageData = currentArticle?.postPage[currentPage];
 
-  // Only show loading for post loading, not auth loading for viewing posts
   if (loading || !posts) return <LoadingSpinner/>;
-  
-  // Handle case where article with specific ID is not found
-  if (articleId && !currentArticle) {
-    return <div>Article not found.</div>;
-  }
-  
-  // Additional safety check for postPage
+  if (articleId && !currentArticle) return <div>Article not found.</div>;
   if (!currentArticle || !currentArticle.postPage || currentArticle.postPage.length === 0) {
     return <div>No article content available.</div>;
   }
@@ -133,7 +160,6 @@ function Article({ onToggleChat, onPostChange }) {
   const likeCount = likeCounts[currentArticle.id] || 0;
 
   const renderLayout = (pageData) => {
-    // Get the first image from PageImage array
     const pageImage = pageData.PageImage?.[0]?.image;
 
     switch (pageData.layout) {
@@ -151,25 +177,24 @@ function Article({ onToggleChat, onPostChange }) {
                 </div>
               </div>
             </div>
-
             <div className={`page-content ${isSliding ? 'sliding' : ''}`}>
               <div className="content-grid-titlePage">
                 <div className="img-content no-select">
-                 {currentArticle.thumbnail?.url && (
-                     <ResponsiveImage
+                  {currentArticle.thumbnail?.url && (
+                    <ResponsiveImage
                       url={currentArticle.thumbnail.url}
                       alt="Post thumbnail"
                       widths={[400, 800, 1200]}
-                      sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px, (min-width: 1290px) 800px, 1200px"
-                      priority = "high" 
+                      sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px"
+                      priority="high" 
                       aspectRatio="16 / 9"
                     />
                   )}
                 </div>
-               <div className="text-content">
+                <div className="text-content">
                   <h3>{pageData.heading || ''}</h3>
                   <h4>{pageData.subtitle || ''}</h4>
-                  <div className="article-content">{parse(pageData.content || '')}</div>                
+                  <div className="article-content">{parse(pageData.content || '')}</div>
                 </div>
               </div>
             </div>
@@ -180,28 +205,26 @@ function Article({ onToggleChat, onPostChange }) {
         return (
           <div className="content-grid-horizontalImage">
             <div className="img-content no-select">
-               {pageImage && (
-                  <ResponsiveImage
-                    url={pageImage.url}
-                    alt={pageImage.altText || pageData.PageImage?.[0]?.caption || 'image'}
-                    widths={[600, 1200, 1600]}
-                    sizes="(max-width: 768px) 600px, (max-width: 1440px) 1200px, 1000px"
-                  />
-                )}
+              {pageImage && (
+                <ResponsiveImage
+                  url={pageImage.url}
+                  alt={pageImage.altText || pageData.PageImage?.[0]?.caption || 'image'}
+                  widths={[600, 1200, 1600]}
+                  sizes="(max-width: 768px) 600px, (max-width: 1440px) 1200px, 1000px"
+                />
+              )}
             </div>
-              <div className="text-content">
-                   <p>{pageData.subtitle || ''}</p>
-                 <div className="article-content">
-                   {parse(pageData.content || '')}
-                 </div>
-              </div>
+            <div className="text-content">
+              <p>{pageData.subtitle || ''}</p>
+              <div className="article-content">{parse(pageData.content || '')}</div>
+            </div>
           </div>
         );
       default:
         return <div>Unsupported layout</div>;
     }
   };
-  
+
   const goToNextPage = () => {
     if (currentPage < totalPages - 1) {
       setIsSliding(true);
@@ -223,8 +246,13 @@ function Article({ onToggleChat, onPostChange }) {
   };
 
   return (
-    <div className={`article-container page-content ${isSliding ? 'sliding' : ''}`}>
-      {renderLayout(totalPages > 0 ? currentPageData : currentArticle)}
+    <div 
+      ref={articleRef}
+      className={`article-container page-content ${isSliding ? 'sliding' : ''}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {renderLayout(currentPageData)}
 
       <div className='content-bottom'>
         <div className='page-indicator'>
@@ -239,9 +267,7 @@ function Article({ onToggleChat, onPostChange }) {
             >
               <span>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</span>
               <HeartIcon className="heart-icon" />
-              { loginMessage && (
-                <span className='login-like-message'>Login to like post</span>
-              )}
+              { loginMessage && <span className='login-like-message'>Login to like post</span>}
             </button>
           </div>
           <div className='comment-chat-wrap' onClick={onToggleChat}>
