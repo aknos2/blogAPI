@@ -231,6 +231,7 @@
     padding: 0;
     font-size: 0.9rem;
     text-align: center;
+    overflow-y: auto;
   }
   
   .article-container {
@@ -246,6 +247,11 @@
     touch-action: pan-y pinch-zoom;
   }
   
+  .content-grid-horizontalImage {
+    grid-template-rows: 17.5rem 3rem 1rem !important; /* image:content */
+    gap: 2rem;
+  }
+
   .title h2 {
     font-size: 1rem;
   }
