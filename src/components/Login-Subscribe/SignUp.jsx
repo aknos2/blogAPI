@@ -4,15 +4,19 @@ import './login-signup.css';
 import { EyeIcon, EyeOffIcon } from '../Icons';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
-import avatarDefault from '/assets/corgi/profile/default.webp';
-import avatar1 from '/assets/corgi/profile/avatar1.webp';
-import avatar2 from '/assets/corgi/profile/avatar2.webp';
-import avatar3 from '/assets/corgi/profile/avatar3.webp';
-import avatar4 from '/assets/corgi/profile/avatar4.webp';
-import avatar5 from '/assets/corgi/profile/avatar5.webp';
-import avatar6 from '/assets/corgi/profile/avatar6.webp';
-import avatar7 from '/assets/corgi/profile/avatar7.webp';
-import avatar8 from '/assets/corgi/profile/avatar8.webp';
+
+const CLOUDINARY_BASE_URL = `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload/`;
+
+export const catAvatar = "https://res.cloudinary.com/dqdwmrgma/image/upload/v1755574100/white-cat-icon_a9qjn0.webp"
+const avatarDefault = `${CLOUDINARY_BASE_URL}v1755574100/default_eyttrs.webp`;
+const avatar1 = `${CLOUDINARY_BASE_URL}v1755574099/avatar1_iaxoqt.webp`;
+const avatar2 = `${CLOUDINARY_BASE_URL}v1755574099/avatar2_ioytov.webp`;
+const avatar3 = `${CLOUDINARY_BASE_URL}v1755574100/avatar3_jtvs5f.webp`;
+const avatar4 = `${CLOUDINARY_BASE_URL}v1755574099/avatar4_zomuor.webp`;
+const avatar5 = `${CLOUDINARY_BASE_URL}v1755574100/avatar5_bpqs1h.webp`;
+const avatar6 = `${CLOUDINARY_BASE_URL}v1755574100/avatar6_n0orj5.webp`;
+const avatar7 = `${CLOUDINARY_BASE_URL}v1755574100/avatar7_xubdaj.webp`;
+const avatar8 = `${CLOUDINARY_BASE_URL}v1755574100/avatar8_ywczdr.webp`;
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -57,7 +61,6 @@ function SignUp() {
       avatar: value
     })
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();

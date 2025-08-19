@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './sideMenu.css'
-import profileImg from '/assets/corgi/profile/white-cat-icon.png'
 import Button from '../Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutAccount } from '../../../api/auth';
 import { fetchUserStats } from '../../../api/user';
+import { catAvatar } from '../Login-Subscribe/SignUp';
 
 function SideMenu({isOpen, onToggleLogin, onMenuToggle}) {
   const [visible, setVisible] = useState(false);
@@ -103,7 +103,7 @@ function SideMenu({isOpen, onToggleLogin, onMenuToggle}) {
         ) : (
           <div className="profile-demo">
             <h3>Profile</h3>
-            <img src={profileImg} alt="User avatar" />
+            <img src={catAvatar} alt="User avatar" />
             <div className="stats">
               <p>{userStats.comments} Comments</p>
               <p>{userStats.likes} Likes</p>
