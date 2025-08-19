@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       { path: "post/:articleId", element: <MainContent /> },
       { path: "about", element: <About /> },
       { path: "credits", element: <Credits /> },
-      { path: "signup", element: <SignUp /> },
+      { path: "signup", element: <SignUp /> }
     ]
   },
 ]);
